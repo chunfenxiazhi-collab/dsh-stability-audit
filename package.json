@@ -9,10 +9,6 @@
     "lib",
     "cordis.patch.yml"
   ],
-  "scripts": {
-    "test": "node --test \"test/*.test.js\"",
-    "lint": "node --check index.js && node --check lib/scanner.js && node --check lib/report.js"
-  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
