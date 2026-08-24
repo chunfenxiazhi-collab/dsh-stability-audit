@@ -1,0 +1,27 @@
+{
+  "profiles": [
+    {
+      "profile": "web",
+      "plugins": [
+        {
+          "plugin": "broken-config-plugin",
+          "version": "0.4.5",
+          "source": "bundle",
+          "findings": [
+            {
+              "checkId": "host-apply",
+              "severity": "critical",
+              "message": "host apply() InvalidInputError: budgets.user.userGlobal must be a positive integer"
+            }
+          ]
+        },
+        {
+          "plugin": "good-plugin",
+          "version": "1.0.0",
+          "source": "bundle",
+          "findings": []
+        }
+      ]
+    }
+  ]
+}

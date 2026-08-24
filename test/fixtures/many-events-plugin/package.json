@@ -1,0 +1,9 @@
+{
+  "name": "many-events-plugin",
+  "version": "0.1.0",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

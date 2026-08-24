@@ -1,0 +1,4 @@
+# dsh-stability-audit bundle patch: mount the audit command + tool.
+- insert:
+    - id: stability-audit
+      name: dsh-stability-audit
