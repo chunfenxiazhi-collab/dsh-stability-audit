@@ -1,6 +1,6 @@
 import { readdirSync } from "node:fs"
+// 顶层同步扫描（启动即阻塞）——真实 codegraph bootstrap 形态
+const ALL_FILES = readdirSync("/")
 export function apply(ctx) {
-  const files = readdirSync("/")   // 启动扫描
-  setInterval(() => {}, 1000)
   ctx.on("ready", () => {})
 }
