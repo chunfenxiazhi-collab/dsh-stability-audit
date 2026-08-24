@@ -26,6 +26,7 @@ git clone https://github.com/chunfenxiazhi-collab/dsh-stability-audit.git
 cd dsh-stability-audit && npm test
 node cli.mjs            # 扫描真实 web profile
 node cli.mjs --dynamic  # 附带隔离安装验证（约 2 秒/插件）
+node cli.mjs --remote owner/repo  # 远程插件预检（clone 到临时目录，静态规则，不安装）
 ```
 
 ## 判级维度
