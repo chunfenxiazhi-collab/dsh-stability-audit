@@ -1,7 +1,8 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { existsSync } from "node:fs"
+import { existsSync, copyFileSync, symlinkSync, mkdtempSync, rmSync } from "node:fs"
 import path from "node:path"
+import { tmpdir } from "node:os"
 import { fileURLToPath } from "node:url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -26,6 +27,13 @@ test("parseSpec: 完整 https 格式", () => {
   const s = parseSpec("https://github.com/owner/repo.git")
   assert.equal(s.owner, "owner")
   assert.equal(s.repo, "repo")
+})
+
+test("parseSpec: owner/repo.git 尾部 .git 正确剥离", () => {
+  const s = parseSpec("owner/repo.git")
+  assert.equal(s.owner, "owner")
+  assert.equal(s.repo, "repo")
+  assert.equal(s.url, "https://github.com/owner/repo.git")
 })
 
 test("parseSpec: 非法格式返回 null", () => {
@@ -70,4 +78,19 @@ test("auditRemote: 清理临时目录", async () => {
   assert.ok(tmpSeen)
   assert.equal(r.grade, "green")
   assert.equal(existsSync(tmpSeen), false, "临时目录应已清理")
+})
+
+test("copyDir: 跳过 symlink（防循环）", { skip: process.platform === "win32" && !process.env.CI }, () => {
+  const stage = mkdtempSync(path.join(tmpdir(), "dsh-sym-"))
+  const out = mkdtempSync(path.join(tmpdir(), "dsh-sym-out-"))
+  try {
+    copyFileSync(path.join(FIX, "good-plugin", "index.js"), path.join(stage, "real.js"))
+    symlinkSync(path.join(stage, "real.js"), path.join(stage, "link.js"))
+    copyDir(stage, out)
+    assert.ok(existsSync(path.join(out, "real.js")))
+    assert.equal(existsSync(path.join(out, "link.js")), false, "symlink 应被跳过")
+  } finally {
+    rmSync(stage, { recursive: true, force: true })
+    rmSync(out, { recursive: true, force: true })
+  }
 })

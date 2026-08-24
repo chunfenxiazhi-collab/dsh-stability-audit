@@ -26,6 +26,7 @@ git clone https://github.com/chunfenxiazhi-collab/dsh-stability-audit.git
 cd dsh-stability-audit && npm test
 node cli.mjs            # scan the real web profile
 node cli.mjs --dynamic  # also run isolated install verification (~2s per plugin)
+node cli.mjs --remote owner/repo  # pre-audit a remote plugin (clone to temp dir, static rules, no install)
 ```
 
 ## Grading dimensions
