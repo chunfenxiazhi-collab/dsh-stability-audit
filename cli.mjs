@@ -37,5 +37,6 @@ if (existsSync(pfPath)) {
   try { preflight = JSON.parse(readFileSync(pfPath, "utf8")) } catch {}
 }
 
-const audit = auditProfile({ plugins, preflight })
+const dynamic = process.argv.includes("--dynamic")
+const audit = auditProfile({ plugins, preflight, dynamic })
 console.log(renderReport(audit))
