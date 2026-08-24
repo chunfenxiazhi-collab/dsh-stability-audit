@@ -9,8 +9,8 @@ import { auditRemote } from "./lib/remote.js"
 const remoteArg = process.argv.indexOf("--remote")
 if (remoteArg !== -1) {
   const spec = process.argv[remoteArg + 1]
-  if (!spec) { console.error("用法: node cli.mjs --remote <owner/repo>"); process.exit(1) }
-  const result = await auditRemote({ spec })
+  if (!spec || spec.startsWith("--")) { console.error("用法: node cli.mjs --remote <owner/repo> [--dynamic]"); process.exit(1) }
+  const result = await auditRemote({ spec, dynamic: process.argv.includes("--dynamic") })
   if (result.status === "fail") { console.error(`远程审计失败: ${result.detail}`); process.exit(1) }
   const audit = { generatedAt: new Date().toISOString(), plugins: [result],
     summary: { red: result.grade === "red" ? 1 : 0, yellow: result.grade === "yellow" ? 1 : 0, green: result.grade === "green" ? 1 : 0 } }

@@ -69,3 +69,5 @@ MIT (c) 2026 chunfenxiazhi
 ## 贡献
 
 欢迎 issue 和 PR。测试：npm test（node:test，零依赖）。
+
+**提交约定**：commit message 用英文标题 + 中文正文（如 `feat: remote plugin pre-audit`），兼顾国际可读性。

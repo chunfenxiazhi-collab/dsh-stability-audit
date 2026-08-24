@@ -69,3 +69,5 @@ MIT (c) 2026 chunfenxiazhi
 ## Contributing
 
 Issues and PRs welcome. Tests: npm test (node:test, zero dependencies).
+
+**Commit convention**: English subject line + optional Chinese body (e.g. `feat: remote plugin pre-audit`).

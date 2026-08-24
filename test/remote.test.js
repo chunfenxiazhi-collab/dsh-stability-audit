@@ -94,3 +94,39 @@ test("copyDir: 跳过 symlink（防循环）", { skip: process.platform === "win
     rmSync(out, { recursive: true, force: true })
   }
 })
+
+test("auditRemote: dynamic=true 时执行隔离验证并返回 dynamic 字段", async () => {
+  let dynTarget = null
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+    dynamic: true,
+    dynamicCheckFn: async (opts) => { dynTarget = opts.target; return { status: "pass", detail: "隔离安装通过" } },
+  })
+  assert.ok(dynTarget, "应调用 dynamicCheckFn")
+  assert.match(dynTarget, /good-plugin$/)
+  assert.equal(r.dynamic.status, "pass")
+  assert.equal(r.grade, "green")
+})
+
+test("auditRemote: dynamic=false（默认）不执行隔离验证", async () => {
+  let called = false
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+    dynamicCheckFn: async () => { called = true; return { status: "pass" } },
+  })
+  assert.equal(called, false, "默认不应调用 dynamicCheckFn")
+  assert.equal(r.dynamic, undefined)
+})
+
+test("auditRemote: dynamic 验证失败不掩盖静态结果（fail 记入 dynamic 字段）", async () => {
+  const r = await auditRemote({
+    spec: "test/hook-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "hook-plugin"), dest) },
+    dynamic: true,
+    dynamicCheckFn: async () => ({ status: "fail", detail: "boot 异常(exit 1)" }),
+  })
+  assert.equal(r.grade, "red", "静态结果仍为 red")
+  assert.equal(r.dynamic.status, "fail")
+})
