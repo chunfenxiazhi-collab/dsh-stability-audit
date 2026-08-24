@@ -10,7 +10,7 @@
     "cordis.patch.yml"
   ],
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test \"test/*.test.js\"",
     "lint": "node --check index.js && node --check lib/scanner.js && node --check lib/report.js"
   },
   "dsh": {
@@ -25,5 +25,8 @@
     "stability",
     "audit",
     "plugin-health"
-  ]
+  ],
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "*"
+  }
 }

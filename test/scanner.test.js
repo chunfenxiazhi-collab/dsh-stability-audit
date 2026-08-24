@@ -55,9 +55,9 @@ test("preflight 判红（配置无效 unresolved/fail）", () => {
   assert.ok(r.findings.some(f => f.ruleId === "preflight-fail"))
 })
 
-test("auditProfile 聚合多个插件", () => {
+test("auditProfile 聚合多个插件", async () => {
   const names = ["good-plugin", "hook-plugin", "startup-plugin", "no-bundle-plugin", "heavy-deps-plugin", "many-events-plugin"]
-  const r = auditProfile({ plugins: names.map(n => ({ dir: path.join(FIX, n) })), preflight: PREFLIGHT })
+  const r = await auditProfile({ plugins: names.map(n => ({ dir: path.join(FIX, n) })), preflight: PREFLIGHT })
   assert.equal(r.plugins.length, 6)
   const counts = r.plugins.reduce((a, p) => (a[p.grade] = (a[p.grade] || 0) + 1, a), {})
   assert.equal(counts.green, 1)
@@ -67,8 +67,8 @@ test("auditProfile 聚合多个插件", () => {
 
 import { renderReport } from "../lib/report.js"
 
-test("renderReport 输出 markdown 含分级", () => {
-  const r = auditProfile({ plugins: [path.join(FIX, "hook-plugin"), path.join(FIX, "good-plugin")].map(d => ({ dir: d })), preflight: PREFLIGHT })
+test("renderReport 输出 markdown 含分级", async () => {
+  const r = await auditProfile({ plugins: [path.join(FIX, "hook-plugin"), path.join(FIX, "good-plugin")].map(d => ({ dir: d })), preflight: PREFLIGHT })
   const md = renderReport(r)
   assert.ok(md.includes("🔴") && md.includes("🟢"), "应含红绿标记")
   assert.ok(md.includes("hook-plugin"))

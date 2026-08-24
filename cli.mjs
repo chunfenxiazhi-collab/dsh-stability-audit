@@ -38,5 +38,5 @@ if (existsSync(pfPath)) {
 }
 
 const dynamic = process.argv.includes("--dynamic")
-const audit = auditProfile({ plugins, preflight, dynamic })
+const audit = await auditProfile({ plugins, preflight, dynamic })
 console.log(renderReport(audit))
