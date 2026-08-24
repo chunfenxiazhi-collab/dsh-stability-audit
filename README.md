@@ -40,6 +40,10 @@ node cli.mjs --dynamic  # also run isolated install verification (~2s per plugin
 | >50 dependencies | yellow | dependency-tree pollution risk |
 | Non-build install scripts (prepare etc.) | yellow | npm lifecycle runs arbitrary code |
 | Preflight critical findings | red | dsh already flagged it at boot |
+| load-time sync service access missing from inject | red | boot crash (doc-guard/barricade incidents) |
+| deferred service access missing from inject | yellow | may be undefined at runtime (cron-style) |
+| main points to unbuilt source (TS/missing file) | red | load-time crash (7 unbuilt plugins) |
+| @deepseek-ai/* range excludes host synced pkg version | yellow | pnpm hoists old build -> tools dead (trailmap) |
 | **Isolated install + boot smoke** | pass/fail | temp DSH_HOME, dsh plugin add, headless boot, no loader errors |
 
 ## How it works

@@ -40,6 +40,10 @@ node cli.mjs --dynamic  # 附带隔离安装验证（约 2 秒/插件）
 | 依赖 >50 | 🟡 | 依赖树污染风险 |
 | 非构建类安装脚本（prepare 等） | 🟡 | npm 生命周期执行任意代码 |
 | 预检报告 critical | 🔴 | dsh 启动时已标记 |
+| 加载期同步访问服务未在 inject 声明 | 🔴 | 启动崩溃（doc-guard/barricade 事故） |
+| 延迟访问服务未在 inject 声明 | 🟡 | 运行时可能 undefined（cron 式延迟访问） |
+| main 指向未构建源码（TS/缺失文件） | 🔴 | 加载即崩溃（7 插件未构建事故） |
+| @deepseek-ai/* 依赖区间不含宿主同步包版本 | 🟡 | pnpm 提升旧版 → 工具层全废（trailmap 事故） |
 | **隔离安装 + 启动冒烟** | ✅/❌ | 临时 DSH_HOME + dsh plugin add + headless 启动无 loader 错误 |
 
 ## 工作原理

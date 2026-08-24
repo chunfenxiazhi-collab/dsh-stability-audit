@@ -1,0 +1,9 @@
+{
+  "name": "dep-range-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
+  "dependencies": {
+    "@deepseek-ai/dsh-tools": "^0.0.1-rc.1"
+  }
+}

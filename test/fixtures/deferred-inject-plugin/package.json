@@ -1,0 +1,6 @@
+{
+  "name": "deferred-inject-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

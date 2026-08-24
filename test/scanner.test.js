@@ -73,3 +73,52 @@ test("renderReport 输出 markdown 含分级", async () => {
   assert.ok(md.includes("🔴") && md.includes("🟢"), "应含红绿标记")
   assert.ok(md.includes("hook-plugin"))
 })
+
+
+// ===== v0.6 新增规则 =====
+
+test("missing-inject-plugin 判红（ctx 服务未 inject 声明）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "missing-inject-plugin"), preflight: PREFLIGHT })
+  assert.equal(r.grade, "red", JSON.stringify(r.findings))
+  assert.ok(r.findings.some(f => f.ruleId === "missing-inject"), "应命中 missing-inject")
+})
+
+test("unbuilt-entry-plugin 判红（main 指向未构建的 TS 源码）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "unbuilt-entry-plugin"), preflight: PREFLIGHT })
+  assert.equal(r.grade, "red", JSON.stringify(r.findings))
+  assert.ok(r.findings.some(f => f.ruleId === "unbuilt-entry"), "应命中 unbuilt-entry")
+})
+
+test("dep-range-plugin 判黄（@deepseek-ai/* 依赖区间不含宿主版本）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "dep-range-plugin"), preflight: PREFLIGHT, hostPkgVersions: { "@deepseek-ai/dsh-tools": "0.1.1-rc.2" } })
+  assert.equal(r.grade, "yellow", JSON.stringify(r.findings))
+  assert.ok(r.findings.some(f => f.ruleId === "dsh-dep-range"), "应命中 dsh-dep-range")
+})
+
+test("dep-range-ok-plugin 判绿（依赖区间含宿主版本）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "dep-range-ok-plugin"), preflight: PREFLIGHT, hostPkgVersions: { "@deepseek-ai/dsh-tools": "0.1.1-rc.2" } })
+  assert.equal(r.grade, "green", JSON.stringify(r.findings))
+})
+
+test("inject 声明齐全的插件不误报", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "good-plugin"), preflight: PREFLIGHT, hostPkgVersions: { "@deepseek-ai/dsh-tools": "0.1.1-rc.2" } })
+  assert.ok(!r.findings.some(f => f.ruleId === "missing-inject"), "good-plugin 不应命中 missing-inject")
+})
+
+test("const-inject 形式声明齐全不误报（构建产物常见）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "const-inject-plugin"), preflight: PREFLIGHT })
+  assert.ok(!r.findings.some(f => f.ruleId === "missing-inject"), JSON.stringify(r.findings))
+  assert.equal(r.grade, "green", JSON.stringify(r.findings))
+})
+
+test("deferred-inject-plugin 判黄（函数内延迟访问未声明）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "deferred-inject-plugin"), preflight: PREFLIGHT })
+  assert.equal(r.grade, "yellow", JSON.stringify(r.findings))
+  const f = r.findings.find(x => x.ruleId === "missing-inject")
+  assert.ok(f && f.severity === "yellow", "应为 yellow 而非 red")
+})
+
+test("sctx 别名不误报 missing-inject（词边界）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "sctx-plugin"), preflight: PREFLIGHT })
+  assert.ok(!r.findings.some(f => f.ruleId === "missing-inject"), JSON.stringify(r.findings))
+})
