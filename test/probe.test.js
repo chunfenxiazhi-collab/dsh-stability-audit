@@ -86,3 +86,9 @@ test("P1: install 成功 → installOk", () => {
   const r = parseInstallOutcome({ installExit: 0, installStderr: "" })
   assert.equal(r.installOk, true)
 })
+
+test("P1: tree failed 伴随 Cannot find package → 判 tree-failure（最高危优先）", () => {
+  const err = "Error: dsh: plugin tree failed to load: failed to import loader entry x: Cannot find package 'y'"
+  const r = parseBootOutcome({ exitCode: 1, stderr: err, timedOut: false, startMs: 1500 })
+  assert.equal(r.ruleHint, "tree-failure")
+})
