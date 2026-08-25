@@ -18,13 +18,13 @@ export function apply(ctx) {
 
   ctx.tools.register({
     name: "stability_audit",
-    description: "扫描已安装插件的稳定性风险（静态判级：钩子面/启动任务/事件监听/打包/依赖/预检），可选隔离环境动态验证，输出分级 Markdown 报告；结果自动落盘 ~/.dsh/stability-report.json。",
+    description: "Scan installed plugins for stability risks (static grading: hook surface / startup work / event listeners / packaging / deps / preflight), optional isolated dynamic verification, graded Markdown report; results persist to ~/.dsh/stability-report.json.",
     parameters: {
       type: "object",
       properties: {
-        dynamic: { type: "boolean", default: false, description: "对全部插件跑隔离安装验证（临时 DSH_HOME，约 2s/插件，27 个约 1 分钟）" },
-        profile: { type: "string", default: "web", description: "要审计的 profile 名" },
-        focus: { type: "boolean", default: false, description: "只看红/黄（省略绿插件），减少噪音" },
+        dynamic: { type: "boolean", default: false, description: "Run isolated install verification for all plugins (temp DSH_HOME, ~2s/plugin, 27 plugins ~1min)" },
+        profile: { type: "string", default: "web", description: "Profile name to audit" },
+        focus: { type: "boolean", default: false, description: "Show only red/yellow (omit green plugins) to reduce noise" },
       },
     },
     output: {
@@ -50,7 +50,7 @@ export function apply(ctx) {
       if (stored.changed) {
         const d = stored.diff
         const notes = [...d.added, ...d.changed, ...d.removed]
-        if (notes.length) lines.push("⚠️ 插件状态变化: " + notes.join("；"))
+        if (notes.length) lines.push("⚠️ Plugin state changes: " + notes.join("; "))
       }
       lines.push("")
       lines.push(renderReport(audit))

@@ -15,12 +15,12 @@ if (remoteArg !== -1) {
     if (a.startsWith("--")) break
     specs.push(...a.split(",").map(s => s.trim()).filter(Boolean))
   }
-  if (!specs.length) { console.error("用法: node cli.mjs --remote <owner/repo[,owner/repo...]> [--dynamic]"); process.exit(1) }
+  if (!specs.length) { console.error("Usage: node cli.mjs --remote <owner/repo[,owner/repo...]> [--dynamic]"); process.exit(1) }
   const dynamic = process.argv.includes("--dynamic")
   const results = []
   for (const spec of specs) {
     const result = await auditRemote({ spec, dynamic })
-    if (result.status === "fail") { console.error(`远程审计失败 ${spec}: ${result.detail}`); continue }
+    if (result.status === "fail") { console.error(`Remote audit failed ${spec}: ${result.detail}`); continue }
     results.push(result)
   }
   const audit = { generatedAt: new Date().toISOString(), plugins: results,
@@ -35,7 +35,7 @@ const profileArg = process.argv[2] || "web"
 const dynamic = process.argv.includes("--dynamic")
 const { plugins, preflight } = collectPlugins(undefined, profileArg)
 if (!plugins.length) {
-  console.error(`profile 不存在或无插件: ${profileArg}`)
+  console.error(`Profile not found or has no plugins: ${profileArg}`)
   process.exit(1)
 }
 const audit = await auditProfile({ plugins, preflight, dynamic })
