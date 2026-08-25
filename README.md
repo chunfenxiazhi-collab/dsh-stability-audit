@@ -82,6 +82,22 @@ Per plugin: name / version / grade / source / dynamic / findings[], each finding
 - Runtime probes (event-loop latency, hook timing) are on the v2 roadmap
 - Fix suggestions are **hints, not auto-applied**: environments differ (junction/overrides fixes depend on the specific mechanism), agents should confirm before executing
 
+### Isolated test vs real environment (what it can and cannot catch)
+
+Isolated testing (temp DSH_HOME + headless smoke) answers: **"can this plugin install on its own and boot cleanly?"** — filtering out ~80% of the failure modes (unbuilt entry, missing inject, dependency conflicts, load crashes).
+
+| Dimension | Isolated env | Real web profile | Impact |
+|---|---|---|---|
+| Services | headless boot | web services + all host services | plugins depending on webServer/webRuntime stay pending in isolation; real behavior not observable |
+| Co-installed plugins | only the audited one | many plugins interacting | inter-plugin conflicts not caught (hooks stepping on each other, service overrides) |
+| Config | empty | real config (API keys, models, paths) | config-dependent plugin paths untested |
+| Credentials/network | no API key | model APIs available | LLM-dependent features only smoke, never execute |
+| Data | empty storage | real sessions/libraries | data-migration plugins untested |
+| Runtime duration | seconds of boot smoke | days of residency | setInterval leaks, memory growth not caught |
+| Permissions/build | same machine, same permissions | same machine, same permissions | ✅ identical |
+
+**Suggested usage**: use isolated testing as bulk screening — exclude red/fail targets; for plugins you actually want, install manually and observe. Automatically testing plugins against the real environment is not recommended — plugins have real destructive power (see the dsh-troubleshooting incidents).
+
 ## Releases
 
 - Release flow: see [RELEASE.md](./RELEASE.md) (GitHub + npm + Release, three channels in sync)
