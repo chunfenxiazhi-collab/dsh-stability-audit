@@ -58,6 +58,8 @@ node cli.mjs --remote owner/repo --json    # 远程预检 JSON 输出
 | **隔离安装 + 启动冒烟** | ✅/❌ | 临时 DSH_HOME + dsh plugin add + headless 启动无 loader 错误 |
 | 入口 import 未声明依赖（missing-dep） | 🔴 | 安装后 Cannot find package（taskboard/memento 案例） |
 | 无 main 且无候选入口（no-entry） | 🔴 | 加载器按包名导入失败（verify 案例） |
+| 数据外泄（process.env 经 fetch/WebSocket 外发） | 🔴 | OpenClaw 341 恶意技能第一大模式 |
+| 硬编码远程端点（URL/WebSocket） | 🟡 | 供人工审查（正常 API 调用常见） |
 
 每条命中都附 **🔧 修复建议**（可执行命令或人工动作），可直接交给用户或其他 agent 执行。
 

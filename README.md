@@ -58,6 +58,8 @@ node cli.mjs --remote owner/repo --json    # remote pre-audit JSON output
 | **Isolated install + boot smoke** | pass/fail | temp DSH_HOME, dsh plugin add, headless boot, no loader errors |
 | Entry imports undeclared deps (missing-dep) | red | Cannot find package after install (taskboard/memento) |
 | No main and no candidate entry (no-entry) | red | loader fails importing by package name (verify) |
+| Data exfiltration (process.env via fetch/WebSocket) | red | OpenClaw 341 malicious-skill top pattern |
+| Hardcoded remote endpoints (URL/WebSocket) | yellow | for human review (normal API calls common) |
 
 Every hit carries a **🔧 fix suggestion** (executable command or manual action) that can be handed to the user or another agent.
 
