@@ -191,3 +191,41 @@ test("v0.9: good-plugin 不误报 missing-dep/no-entry", () => {
   const r = auditPlugin({ dir: path.join(FIX, "good-plugin"), preflight: PREFLIGHT })
   assert.ok(!r.findings.some(f => ["missing-dep", "no-entry"].includes(f.ruleId)), JSON.stringify(r.findings))
 })
+
+test("v0.11: 端点提取——process.env 外泄 → red exfil", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "exfil-plugin"), preflight: PREFLIGHT })
+  const f = r.findings.find(x => x.ruleId === "exfil")
+  assert.ok(f, "应命中 exfil: " + JSON.stringify(r.findings))
+  assert.equal(f.severity, "red")
+  assert.ok(f.endpoints?.some(e => e.includes("evil.example.com")), "应列出外泄端点")
+  assert.ok(f.fix && f.fix.length > 5, "应有 fix")
+})
+
+test("v0.11: 端点提取——WebSocket 回连 → yellow remote-endpoint", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "ws-plugin"), preflight: PREFLIGHT })
+  const f = r.findings.find(x => x.ruleId === "remote-endpoints")
+  assert.ok(f, "应命中 remote-endpoints: " + JSON.stringify(r.findings))
+  assert.equal(f.severity, "yellow")
+  assert.ok(f.endpoints?.some(e => e.includes("wss://")), "应列出 wss 端点")
+})
+
+test("v0.11: 端点提取——正常 API 调用 → 仅 yellow（人工确认）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "api-plugin"), preflight: PREFLIGHT })
+  const f = r.findings.find(x => x.ruleId === "remote-endpoints")
+  assert.ok(f, "应命中 remote-endpoints")
+  assert.equal(f.severity, "yellow")
+  assert.equal(r.grade, "yellow", "不应红（正常 API 是常见行为）")
+})
+
+test("v0.11: 端点提取——good-plugin 无端点不误报", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "good-plugin"), preflight: PREFLIGHT })
+  assert.ok(!r.findings.some(f => ["exfil", "remote-endpoints"].includes(f.ruleId)), JSON.stringify(r.findings))
+})
+
+test("v0.11: renderJson 输出带 endpoints 字段", async () => {
+  const { renderJson } = await import("../lib/report.js")
+  const r = await auditProfile({ plugins: [{ dir: path.join(FIX, "api-plugin") }], preflight: PREFLIGHT })
+  const j = JSON.parse(renderJson(r))
+  const f = j.plugins[0].findings.find(x => x.ruleId === "remote-endpoints")
+  assert.ok(f && f.endpoints && f.endpoints.some(e => e.includes("api.deepseek.com")), JSON.stringify(f))
+})
