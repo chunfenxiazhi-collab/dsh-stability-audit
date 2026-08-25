@@ -154,3 +154,20 @@ test("v0.8: renderJson 结构化输出含 fix", async () => {
   assert.equal(j.plugins[0].findings[0].ruleId, "hook-surface")
   assert.ok(j.plugins[0].findings[0].fix.length > 5, "fix 应存在")
 })
+
+test("v0.8: main 指向 TS 且仅 --noEmit 类型检查 → unbuilt-entry 红", async () => {
+  const { mkdtempSync, rmSync, writeFileSync, mkdirSync } = await import("node:fs")
+  const { tmpdir } = await import("node:os")
+  const stage = mkdtempSync(path.join(tmpdir(), "dsh-noemit-"))
+  try {
+    mkdirSync(path.join(stage, "src"))
+    writeFileSync(path.join(stage, "src", "index.ts"), "export const name = 'x'")
+    writeFileSync(path.join(stage, "package.json"), JSON.stringify({
+      name: "noemit-plugin", version: "1.0.0", main: "src/index.ts",
+      scripts: { typecheck: "tsc --noEmit", test: "node --test" },
+    }))
+    const r = auditPlugin({ dir: stage, preflight: PREFLIGHT })
+    assert.equal(r.grade, "red", JSON.stringify(r.findings))
+    assert.ok(r.findings.some(f => f.ruleId === "unbuilt-entry"), "应命中 unbuilt-entry")
+  } finally { rmSync(stage, { recursive: true, force: true }) }
+})

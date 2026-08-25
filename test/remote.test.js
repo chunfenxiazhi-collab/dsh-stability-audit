@@ -104,7 +104,7 @@ test("auditRemote: dynamic=true 时执行隔离验证并返回 dynamic 字段", 
     dynamicCheckFn: async (opts) => { dynTarget = opts.target; return { status: "pass", detail: "隔离安装通过" } },
   })
   assert.ok(dynTarget, "应调用 dynamicCheckFn")
-  assert.match(dynTarget, /good-plugin$/)
+  assert.match(dynTarget, /https?:\/\//, "远程审计应传 git URL 以触发依赖解析")
   assert.equal(r.dynamic.status, "pass")
   assert.equal(r.grade, "green")
 })
