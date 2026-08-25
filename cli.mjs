@@ -8,12 +8,25 @@ import { auditRemote } from "./lib/remote.js"
 
 const remoteArg = process.argv.indexOf("--remote")
 if (remoteArg !== -1) {
-  const spec = process.argv[remoteArg + 1]
-  if (!spec || spec.startsWith("--")) { console.error("用法: node cli.mjs --remote <owner/repo> [--dynamic]"); process.exit(1) }
-  const result = await auditRemote({ spec, dynamic: process.argv.includes("--dynamic") })
-  if (result.status === "fail") { console.error(`远程审计失败: ${result.detail}`); process.exit(1) }
-  const audit = { generatedAt: new Date().toISOString(), plugins: [result],
-    summary: { red: result.grade === "red" ? 1 : 0, yellow: result.grade === "yellow" ? 1 : 0, green: result.grade === "green" ? 1 : 0 } }
+  // 支持多个 spec：--remote a/b,c/d 或 --remote a/b c/d（直到下一个 -- 参数）
+  const specs = []
+  for (let i = remoteArg + 1; i < process.argv.length; i++) {
+    const a = process.argv[i]
+    if (a.startsWith("--")) break
+    specs.push(...a.split(",").map(s => s.trim()).filter(Boolean))
+  }
+  if (!specs.length) { console.error("用法: node cli.mjs --remote <owner/repo[,owner/repo...]> [--dynamic]"); process.exit(1) }
+  const dynamic = process.argv.includes("--dynamic")
+  const results = []
+  for (const spec of specs) {
+    const result = await auditRemote({ spec, dynamic })
+    if (result.status === "fail") { console.error(`远程审计失败 ${spec}: ${result.detail}`); continue }
+    results.push(result)
+  }
+  const audit = { generatedAt: new Date().toISOString(), plugins: results,
+    summary: { red: results.filter(r => r.grade === "red").length,
+               yellow: results.filter(r => r.grade === "yellow").length,
+               green: results.filter(r => r.grade === "green").length } }
   console.log(process.argv.includes("--json") ? renderJson(audit) : renderReport(audit))
   process.exit(0)
 }
