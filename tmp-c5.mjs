@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process"
 import { writeFileSync } from "node:fs"
 const w = "C:/学习资料/DEEPSEEK HARNESS/dsh-stability-audit"
-const lines = ["feat: per-finding fix suggestions + --json machine-readable output", "", "Every finding now carries a fix field (executable command or manual action) so user agents scanning the harness can quickly surface problems and remedies. New --json flag emits structured output (schema dsh-stability-audit/v1) with ruleId/severity/evidence/fix per finding; markdown report shows a wrench line per finding. Bump to 0.8.0.", ""]
+const lines = ["docs: bring READMEs up to date with v0.8", "", "Add npm install option, --json usage, remote --dynamic examples, fix-suggestion note, release channels, and the failure-mode lessons (dsh-tools single instance, session pollution). Both zh and en rewritten in sync.", ""]
 writeFileSync(w + "/tmp-msg.txt", lines.join("\n"))
 execFileSync("git", ["-C", w, "add", "-A"])
 execFileSync("git", ["-C", w, "-c", "user.name=chunfenxiazhi", "-c", "user.email=chunfenxiazhi@users.noreply.github.com", "commit", "-F", w + "/tmp-msg.txt"], { encoding: "utf8" })
