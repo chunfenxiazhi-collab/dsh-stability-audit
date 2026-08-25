@@ -11,6 +11,11 @@ export const inject = ["tools"]
 
 // 工具对象直接注册（等效 defineTool 的简单参数情形：boolean/string 即标准 JSON Schema）
 export function apply(ctx) {
+  // 启动时自动扫描（行业经验：被动扫描 + 变化才打扰）。
+  // 不阻塞启动、失败静默、不弹窗——只让报告保持新鲜，下次调用时变化提示准确。
+  // 定时触发：利用 dsh 启动时机；零依赖实现。
+  scheduleAutoScan()
+
   ctx.tools.register({
     name: "stability_audit",
     description: "扫描已安装插件的稳定性风险（静态判级：钩子面/启动任务/事件监听/打包/依赖/预检），可选隔离环境动态验证，输出分级 Markdown 报告；结果自动落盘 ~/.dsh/stability-report.json。",
@@ -52,4 +57,21 @@ export function apply(ctx) {
       return lines.join("\n")
     },
   })
+}
+
+// 启动时异步跑一次静态审计（秒级），仅落盘 + 更新变化基线，不产生任何输出/通知。
+// 安全：try/catch 全包裹，审计失败绝不影响 dsh 启动。
+function scheduleAutoScan() {
+  // 延迟到 apply 完成后执行（让 dsh 先完成启动）
+  setTimeout(() => {
+    ;(async () => {
+      try {
+        const { plugins, preflight } = collectPlugins()
+        const audit = await auditProfile({ plugins, preflight, dynamic: false })
+        persistReport(audit) // 变化检测自动更新基线
+      } catch {
+        // 静默：审计失败不影响 dsh
+      }
+    })()
+  }, 3000)
 }
