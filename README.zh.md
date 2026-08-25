@@ -2,6 +2,8 @@
 
 扫描已安装的 DeepSeek Harness (dsh) 插件，在它们搞坏你的 harness 之前给出**稳定性风险分级 + 修复建议**——静态分析 + 可选隔离安装验证 + 机器可读输出，供任何 agent 快速发现问题和修复方法。
 
+> **真实案例驱动**：本项目每一条判级规则都源自 dsh 生态真实故障案例——barricade 钩子拦截全工具链、codegraph 启动冻结事件循环、trailmap 依赖版本冲突废掉工具层、dsh-tools 单实例破坏、doc-guard/secret-guard inject 缺失启动崩溃、7 插件未构建加载即崩、memento/taskboard 依赖未声明 Cannot find package……规则即排障手册的代码化。
+
 > 社区插件往往是年轻项目。本插件只回答一个问题：**装/留这个插件会不会伤到我的 dsh？** 它对每个已装插件给出 🔴/🟡/🟢 分级、证据和 🔧 修复建议，让你用事实决策，而不是凭感觉。
 
 ## 为什么需要

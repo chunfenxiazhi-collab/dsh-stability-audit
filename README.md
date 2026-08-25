@@ -2,6 +2,8 @@
 
 Scan installed DeepSeek Harness (dsh) plugins and get a **stability risk grade + fix suggestion** before they break your harness — static analysis, optional isolated install verification, and machine-readable output for any agent to surface problems and remedies fast.
 
+> **Built from real incidents**: every grading rule comes from actual dsh ecosystem failures — barricade's hooks killing the whole tool chain, codegraph freezing the event loop at startup, trailmap's version conflict breaking the tool layer, dsh-tools single-instance corruption, doc-guard/secret-guard missing-inject boot crashes, 7 unbuilt plugins crashing on load, memento/taskboard undeclared deps (Cannot find package)... The rules are the troubleshooting manual, codified.
+
 > Community plugins are often young projects. This plugin answers one question: **will installing/keeping this plugin hurt my dsh?** Each installed plugin gets a 🔴/🟡/🟢 grade, evidence, and a 🔧 fix suggestion, so you decide on facts, not vibes.
 
 ## Why
