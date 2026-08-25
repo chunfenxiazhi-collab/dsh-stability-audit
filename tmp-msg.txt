@@ -1,3 +1,0 @@
-docs: bring READMEs up to date with v0.8
-
-Add npm install option, --json usage, remote --dynamic examples, fix-suggestion note, release channels, and the failure-mode lessons (dsh-tools single instance, session pollution). Both zh and en rewritten in sync.
