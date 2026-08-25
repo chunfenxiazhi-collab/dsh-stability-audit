@@ -57,6 +57,8 @@ node cli.mjs --remote owner/repo --json    # 远程预检 JSON 输出
 
 每条命中都附 **🔧 修复建议**（可执行命令或人工动作），可直接交给用户或其他 agent 执行。
 
+**批量测控**：`--remote` 支持多仓库（逗号分隔或空格隔开），可一次预检一批网上插件（clone → 静态 → 隔离安装冒烟，全程不影响宿主）。实测样例见 [docs/audit-report.md](./docs/audit-report.md)（18 个插件核查后判定）。
+
 ## 工作原理
 
 1. 从 ~/.dsh/profiles/<name>/package.json 收集插件（node_modules + plugin-src）

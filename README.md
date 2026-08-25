@@ -57,6 +57,8 @@ node cli.mjs --remote owner/repo --json    # remote pre-audit JSON output
 
 Every hit carries a **🔧 fix suggestion** (executable command or manual action) that can be handed to the user or another agent.
 
+**Batch testing**: `--remote` accepts multiple specs (comma- or space-separated) to pre-audit a batch of online plugins in one run (clone → static → isolated install smoke, host untouched). Verified sample: [docs/audit-report.md](./docs/audit-report.md) (18 plugins, post-verification verdicts).
+
 ## How it works
 
 1. Collect plugins from ~/.dsh/profiles/<name>/package.json (node_modules + plugin-src)
