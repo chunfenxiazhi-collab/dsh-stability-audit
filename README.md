@@ -54,6 +54,8 @@ node cli.mjs --remote owner/repo --json    # remote pre-audit JSON output
 | Deferred service access missing from inject | yellow | may be undefined at runtime (cron-style) |
 | @deepseek-ai/* range excludes host synced pkg version | yellow | pnpm hoists old build -> tools dead (trailmap) |
 | **Isolated install + boot smoke** | pass/fail | temp DSH_HOME, dsh plugin add, headless boot, no loader errors |
+| Entry imports undeclared deps (missing-dep) | red | Cannot find package after install (taskboard/memento) |
+| No main and no candidate entry (no-entry) | red | loader fails importing by package name (verify) |
 
 Every hit carries a **🔧 fix suggestion** (executable command or manual action) that can be handed to the user or another agent.
 

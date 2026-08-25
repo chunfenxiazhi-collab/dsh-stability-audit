@@ -171,3 +171,23 @@ test("v0.8: main 指向 TS 且仅 --noEmit 类型检查 → unbuilt-entry 红", 
     assert.ok(r.findings.some(f => f.ruleId === "unbuilt-entry"), "应命中 unbuilt-entry")
   } finally { rmSync(stage, { recursive: true, force: true }) }
 })
+
+test("v0.9: missing-dep 红（入口 import 未声明依赖）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "missing-dep-plugin"), preflight: PREFLIGHT })
+  assert.equal(r.grade, "red", JSON.stringify(r.findings))
+  const f = r.findings.find(x => x.ruleId === "missing-dep")
+  assert.ok(f, "应命中 missing-dep")
+  assert.ok(f.desc.includes("schemastery"), "应指出 schemastery")
+  assert.ok(f.fix && f.fix.length > 5, "应有 fix")
+})
+
+test("v0.9: no-entry 红（无 main 且无候选入口）", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "no-entry-plugin"), preflight: PREFLIGHT })
+  assert.equal(r.grade, "red", JSON.stringify(r.findings))
+  assert.ok(r.findings.some(f => f.ruleId === "no-entry"), "应命中 no-entry")
+})
+
+test("v0.9: good-plugin 不误报 missing-dep/no-entry", () => {
+  const r = auditPlugin({ dir: path.join(FIX, "good-plugin"), preflight: PREFLIGHT })
+  assert.ok(!r.findings.some(f => ["missing-dep", "no-entry"].includes(f.ruleId)), JSON.stringify(r.findings))
+})

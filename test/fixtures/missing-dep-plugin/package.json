@@ -1,0 +1,8 @@
+{
+  "name": "missing-dep-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^19.0.0"
+  }
+}

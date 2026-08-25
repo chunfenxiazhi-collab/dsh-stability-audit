@@ -54,6 +54,8 @@ node cli.mjs --remote owner/repo --json    # 远程预检 JSON 输出
 | 延迟访问服务未在 inject 声明 | 🟡 | 运行时可能 undefined（cron 式延迟访问） |
 | @deepseek-ai/* 依赖区间不含宿主同步包版本 | 🟡 | pnpm 提升旧版 → 工具层全废（trailmap 事故） |
 | **隔离安装 + 启动冒烟** | ✅/❌ | 临时 DSH_HOME + dsh plugin add + headless 启动无 loader 错误 |
+| 入口 import 未声明依赖（missing-dep） | 🔴 | 安装后 Cannot find package（taskboard/memento 案例） |
+| 无 main 且无候选入口（no-entry） | 🔴 | 加载器按包名导入失败（verify 案例） |
 
 每条命中都附 **🔧 修复建议**（可执行命令或人工动作），可直接交给用户或其他 agent 执行。
 
