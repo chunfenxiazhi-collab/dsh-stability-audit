@@ -1,0 +1,379 @@
+﻿2026-08-24T22:16:05.3836848Z Current runner version: '2.336.0'
+2026-08-24T22:16:05.3861166Z ##[group]Runner Image Provisioner
+2026-08-24T22:16:05.3862099Z Hosted Compute Agent
+2026-08-24T22:16:05.3862708Z Version: 20260729.566
+2026-08-24T22:16:05.3863376Z Commit: cf7153fe6e25b664e8693c24944bf2b00355d109
+2026-08-24T22:16:05.3864159Z Build Date: 2026-07-29T19:17:02Z
+2026-08-24T22:16:05.3865252Z Worker ID: {a4c65830-0cd0-4df5-b84f-b723fe79a604}
+2026-08-24T22:16:05.3866075Z Azure Region: eastus
+2026-08-24T22:16:05.3866651Z ##[endgroup]
+2026-08-24T22:16:05.3868276Z ##[group]Operating System
+2026-08-24T22:16:05.3868962Z Ubuntu
+2026-08-24T22:16:05.3869465Z 24.04.4
+2026-08-24T22:16:05.3870079Z LTS
+2026-08-24T22:16:05.3870585Z ##[endgroup]
+2026-08-24T22:16:05.3871172Z ##[group]Runner Image
+2026-08-24T22:16:05.3871812Z Image: ubuntu-24.04
+2026-08-24T22:16:05.3872377Z Version: 20260816.277.1
+2026-08-24T22:16:05.3873682Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260816.277/images/ubuntu/Ubuntu2404-Readme.md
+2026-08-24T22:16:05.3875569Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260816.277
+2026-08-24T22:16:05.3876632Z ##[endgroup]
+2026-08-24T22:16:05.3878251Z ##[group]GITHUB_TOKEN Permissions
+2026-08-24T22:16:05.3880396Z Contents: read
+2026-08-24T22:16:05.3881117Z Metadata: read
+2026-08-24T22:16:05.3881730Z Packages: read
+2026-08-24T22:16:05.3882288Z ##[endgroup]
+2026-08-24T22:16:05.3885165Z Secret source: Actions
+2026-08-24T22:16:05.3886239Z Prepare workflow directory
+2026-08-24T22:16:05.4211946Z Prepare all required actions
+2026-08-24T22:16:05.4259727Z Getting action download info
+2026-08-24T22:16:05.6191031Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-08-24T22:16:05.7539796Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-08-24T22:16:05.9412628Z Complete job name: test
+2026-08-24T22:16:06.0168171Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-24T22:16:06.0177248Z ##[group]Run actions/checkout@v4
+2026-08-24T22:16:06.0178005Z with:
+2026-08-24T22:16:06.0178570Z   repository: chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.0182747Z   token: ***
+2026-08-24T22:16:06.0183182Z   ssh-strict: true
+2026-08-24T22:16:06.0183623Z   ssh-user: git
+2026-08-24T22:16:06.0184070Z   persist-credentials: true
+2026-08-24T22:16:06.0184826Z   clean: true
+2026-08-24T22:16:06.0185280Z   sparse-checkout-cone-mode: true
+2026-08-24T22:16:06.0185809Z   fetch-depth: 1
+2026-08-24T22:16:06.0186246Z   fetch-tags: false
+2026-08-24T22:16:06.0186706Z   show-progress: true
+2026-08-24T22:16:06.0187159Z   lfs: false
+2026-08-24T22:16:06.0187614Z   submodules: false
+2026-08-24T22:16:06.0188064Z   set-safe-directory: true
+2026-08-24T22:16:06.0188575Z   allow-unsafe-pr-checkout: false
+2026-08-24T22:16:06.0189381Z ##[endgroup]
+2026-08-24T22:16:06.1183227Z Syncing repository: chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.1186363Z ##[group]Getting Git version info
+2026-08-24T22:16:06.1187275Z Working directory is '/home/runner/work/dsh-stability-audit/dsh-stability-audit'
+2026-08-24T22:16:06.1188639Z [command]/usr/bin/git version
+2026-08-24T22:16:06.1256789Z git version 2.55.0
+2026-08-24T22:16:06.1313895Z ##[endgroup]
+2026-08-24T22:16:06.1330046Z Temporarily overriding HOME='/home/runner/work/_temp/bfdc1c4c-1e0e-4478-9ff1-bd7f43b5fdcf' before making global git config changes
+2026-08-24T22:16:06.1332527Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-24T22:16:06.1336855Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/dsh-stability-audit/dsh-stability-audit
+2026-08-24T22:16:06.1389497Z Deleting the contents of '/home/runner/work/dsh-stability-audit/dsh-stability-audit'
+2026-08-24T22:16:06.1393650Z ##[group]Initializing the repository
+2026-08-24T22:16:06.1399392Z [command]/usr/bin/git init /home/runner/work/dsh-stability-audit/dsh-stability-audit
+2026-08-24T22:16:06.1488343Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-08-24T22:16:06.1489866Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-08-24T22:16:06.1490850Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-08-24T22:16:06.1491601Z hint: call:
+2026-08-24T22:16:06.1492003Z hint:
+2026-08-24T22:16:06.1492521Z hint: 	git config --global init.defaultBranch <name>
+2026-08-24T22:16:06.1493137Z hint:
+2026-08-24T22:16:06.1493716Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-08-24T22:16:06.1494936Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-08-24T22:16:06.1495706Z hint:
+2026-08-24T22:16:06.1496164Z hint: 	git branch -m <name>
+2026-08-24T22:16:06.1496773Z hint:
+2026-08-24T22:16:06.1497396Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-08-24T22:16:06.1503167Z Initialized empty Git repository in /home/runner/work/dsh-stability-audit/dsh-stability-audit/.git/
+2026-08-24T22:16:06.1515114Z [command]/usr/bin/git remote add origin https://github.com/chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.1561257Z ##[endgroup]
+2026-08-24T22:16:06.1562606Z ##[group]Disabling automatic garbage collection
+2026-08-24T22:16:06.1566504Z [command]/usr/bin/git config --local gc.auto 0
+2026-08-24T22:16:06.1597695Z ##[endgroup]
+2026-08-24T22:16:06.1598858Z ##[group]Setting up auth
+2026-08-24T22:16:06.1604089Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-24T22:16:06.1664976Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-24T22:16:06.2024082Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-24T22:16:06.2062672Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-24T22:16:06.2282638Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-24T22:16:06.2320382Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-24T22:16:06.2539006Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-08-24T22:16:06.2576771Z ##[endgroup]
+2026-08-24T22:16:06.2585793Z ##[group]Fetching the repository
+2026-08-24T22:16:06.2587454Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bda44dd77abf6991187e8bd6f572efd496f2b3c3:refs/remotes/origin/master
+2026-08-24T22:16:06.4788469Z From https://github.com/chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.4789641Z  * [new ref]         bda44dd77abf6991187e8bd6f572efd496f2b3c3 -> origin/master
+2026-08-24T22:16:06.4793790Z ##[endgroup]
+2026-08-24T22:16:06.4794921Z ##[group]Determining the checkout info
+2026-08-24T22:16:06.4796828Z ##[endgroup]
+2026-08-24T22:16:06.4802795Z [command]/usr/bin/git sparse-checkout disable
+2026-08-24T22:16:06.4853120Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-08-24T22:16:06.4884940Z ##[group]Checking out the ref
+2026-08-24T22:16:06.4889100Z [command]/usr/bin/git checkout --progress --force -B master refs/remotes/origin/master
+2026-08-24T22:16:06.4979346Z Reset branch 'master'
+2026-08-24T22:16:06.4985069Z branch 'master' set up to track 'origin/master'.
+2026-08-24T22:16:06.4990172Z ##[endgroup]
+2026-08-24T22:16:06.5032929Z [command]/usr/bin/git log -1 --format=%H
+2026-08-24T22:16:06.5060322Z bda44dd77abf6991187e8bd6f572efd496f2b3c3
+2026-08-24T22:16:06.5338590Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-24T22:16:06.5341506Z ##[group]Run actions/setup-node@v4
+2026-08-24T22:16:06.5342040Z with:
+2026-08-24T22:16:06.5342449Z   node-version: 22
+2026-08-24T22:16:06.5342891Z   always-auth: false
+2026-08-24T22:16:06.5343334Z   check-latest: false
+2026-08-24T22:16:06.5347613Z   token: ***
+2026-08-24T22:16:06.5348043Z ##[endgroup]
+2026-08-24T22:16:06.6751866Z Found in cache @ /opt/hostedtoolcache/node/22.23.2/x64
+2026-08-24T22:16:06.6760198Z ##[group]Environment details
+2026-08-24T22:16:06.6766164Z (node:2315) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-08-24T22:16:06.6769401Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-24T22:16:07.0431093Z node: v22.23.2
+2026-08-24T22:16:07.0432430Z npm: 10.9.8
+2026-08-24T22:16:07.0433610Z yarn: 1.22.22
+2026-08-24T22:16:07.0436146Z ##[endgroup]
+2026-08-24T22:16:07.0617819Z ##[group]Run node --test test/*.test.js
+2026-08-24T22:16:07.0619393Z [36;1mnode --test test/*.test.js[0m
+2026-08-24T22:16:07.0677451Z shell: /usr/bin/bash -e {0}
+2026-08-24T22:16:07.0678717Z ##[endgroup]
+2026-08-24T22:16:07.1320818Z TAP version 13
+2026-08-24T22:16:07.1817290Z # Subtest: stageTarget 无空格路径原样返回
+2026-08-24T22:16:07.1819453Z ok 1 - stageTarget 无空格路径原样返回
+2026-08-24T22:16:07.1820689Z   ---
+2026-08-24T22:16:07.1821711Z   duration_ms: 1.274797
+2026-08-24T22:16:07.1822844Z   type: 'test'
+2026-08-24T22:16:07.1823837Z   ...
+2026-08-24T22:16:07.1825922Z # Subtest: findDshBin 返回存在的 bin 或 null
+2026-08-24T22:16:07.1828398Z ok 2 - findDshBin 返回存在的 bin 或 null
+2026-08-24T22:16:07.1830360Z   ---
+2026-08-24T22:16:07.1831969Z   duration_ms: 1.242908
+2026-08-24T22:16:07.1833820Z   type: 'test'
+2026-08-24T22:16:07.1835668Z   ...
+2026-08-24T22:16:07.1838324Z # Subtest: dynamicCheck 对无效 DSH_CLI 优雅处理（fallback 或 skipped）
+2026-08-24T22:16:07.1841677Z ok 3 - dynamicCheck 对无效 DSH_CLI 优雅处理（fallback 或 skipped）
+2026-08-24T22:16:07.1844031Z   ---
+2026-08-24T22:16:07.1846118Z   duration_ms: 0.722162
+2026-08-24T22:16:07.1847848Z   type: 'test'
+2026-08-24T22:16:07.1849503Z   ...
+2026-08-24T22:16:07.1913592Z # node:internal/modules/package_json_reader:314
+2026-08-24T22:16:07.1918082Z #   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+2026-08-24T22:16:07.1921560Z #         ^
+2026-08-24T22:16:07.1927362Z # Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@deepseek-ai/dsh-tools' imported from /home/runner/work/dsh-stability-audit/dsh-stability-audit/index.js
+2026-08-24T22:16:07.1934640Z #     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:314:9)
+2026-08-24T22:16:07.1939191Z #     at packageResolve (node:internal/modules/esm/resolve:768:81)
+2026-08-24T22:16:07.1943250Z #     at moduleResolve (node:internal/modules/esm/resolve:855:18)
+2026-08-24T22:16:07.1947495Z #     at defaultResolve (node:internal/modules/esm/resolve:985:11)
+2026-08-24T22:16:07.1951685Z #     at \#cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+2026-08-24T22:16:07.1956222Z #     at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+2026-08-24T22:16:07.1960996Z #     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+2026-08-24T22:16:07.1965777Z #     at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+2026-08-24T22:16:07.1969159Z #   code: 'ERR_MODULE_NOT_FOUND'
+2026-08-24T22:16:07.1971566Z # }
+2026-08-24T22:16:07.1973513Z # Node.js v22.23.2
+2026-08-24T22:16:07.1976062Z # Subtest: test/index.test.js
+2026-08-24T22:16:07.1978641Z not ok 2 - test/index.test.js
+2026-08-24T22:16:07.1980910Z   ---
+2026-08-24T22:16:07.1982829Z   duration_ms: 40.427996
+2026-08-24T22:16:07.1985741Z   type: 'test'
+2026-08-24T22:16:07.1989342Z   location: '/home/runner/work/dsh-stability-audit/dsh-stability-audit/test/index.test.js:1:1'
+2026-08-24T22:16:07.1993487Z   failureType: 'testCodeFailure'
+2026-08-24T22:16:07.1996227Z   exitCode: 1
+2026-08-24T22:16:07.1998303Z   signal: ~
+2026-08-24T22:16:07.2000309Z   error: 'test failed'
+2026-08-24T22:16:07.2002560Z   code: 'ERR_TEST_FAILURE'
+2026-08-24T22:16:07.2005132Z   ...
+2026-08-24T22:16:07.2052791Z # Subtest: parseSpec: owner/repo 格式
+2026-08-24T22:16:07.2056175Z ok 5 - parseSpec: owner/repo 格式
+2026-08-24T22:16:07.2058885Z   ---
+2026-08-24T22:16:07.2060931Z   duration_ms: 1.770255
+2026-08-24T22:16:07.2063204Z   type: 'test'
+2026-08-24T22:16:07.2065458Z   ...
+2026-08-24T22:16:07.2068011Z # Subtest: parseSpec: github: 前缀格式
+2026-08-24T22:16:07.2074970Z ok 6 - parseSpec: github: 前缀格式
+2026-08-24T22:16:07.2106235Z   ---
+2026-08-24T22:16:07.2126390Z   duration_ms: 0.458118
+2026-08-24T22:16:07.2128598Z   type: 'test'
+2026-08-24T22:16:07.2130594Z   ...
+2026-08-24T22:16:07.2132858Z # Subtest: parseSpec: 完整 https 格式
+2026-08-24T22:16:07.2135816Z ok 7 - parseSpec: 完整 https 格式
+2026-08-24T22:16:07.2138122Z   ---
+2026-08-24T22:16:07.2140046Z   duration_ms: 0.26205
+2026-08-24T22:16:07.2142094Z   type: 'test'
+2026-08-24T22:16:07.2144721Z   ...
+2026-08-24T22:16:07.2147255Z # Subtest: parseSpec: owner/repo.git 尾部 .git 正确剥离
+2026-08-24T22:16:07.2150659Z ok 8 - parseSpec: owner/repo.git 尾部 .git 正确剥离
+2026-08-24T22:16:07.2153270Z   ---
+2026-08-24T22:16:07.2155575Z   duration_ms: 0.221454
+2026-08-24T22:16:07.2157733Z   type: 'test'
+2026-08-24T22:16:07.2159673Z   ...
+2026-08-24T22:16:07.2161960Z # Subtest: parseSpec: 非法格式返回 null
+2026-08-24T22:16:07.2164606Z ok 9 - parseSpec: 非法格式返回 null
+2026-08-24T22:16:07.2166585Z   ---
+2026-08-24T22:16:07.2168292Z   duration_ms: 0.37373
+2026-08-24T22:16:07.2170339Z   type: 'test'
+2026-08-24T22:16:07.2172173Z   ...
+2026-08-24T22:16:07.2175185Z # Subtest: auditRemote: cloneFn 注入审计 good-plugin → green
+2026-08-24T22:16:07.2178974Z ok 10 - auditRemote: cloneFn 注入审计 good-plugin → green
+2026-08-24T22:16:07.2181514Z   ---
+2026-08-24T22:16:07.2183150Z   duration_ms: 3.877511
+2026-08-24T22:16:07.2185366Z   type: 'test'
+2026-08-24T22:16:07.2186992Z   ...
+2026-08-24T22:16:07.2189734Z # Subtest: auditRemote: cloneFn 注入审计 hook-plugin → red hook-surface
+2026-08-24T22:16:07.2193564Z ok 11 - auditRemote: cloneFn 注入审计 hook-plugin → red hook-surface
+2026-08-24T22:16:07.2196517Z   ---
+2026-08-24T22:16:07.2198239Z   duration_ms: 1.993002
+2026-08-24T22:16:07.2200138Z   type: 'test'
+2026-08-24T22:16:07.2201779Z   ...
+2026-08-24T22:16:07.2203841Z # Subtest: auditRemote: clone 失败返回 fail 状态
+2026-08-24T22:16:07.2207000Z ok 12 - auditRemote: clone 失败返回 fail 状态
+2026-08-24T22:16:07.2209164Z   ---
+2026-08-24T22:16:07.2210845Z   duration_ms: 0.61436
+2026-08-24T22:16:07.2212671Z   type: 'test'
+2026-08-24T22:16:07.2225630Z   ...
+2026-08-24T22:16:07.2226826Z # Subtest: auditRemote: 清理临时目录
+2026-08-24T22:16:07.2228169Z ok 13 - auditRemote: 清理临时目录
+2026-08-24T22:16:07.2229307Z   ---
+2026-08-24T22:16:07.2230221Z   duration_ms: 1.87974
+2026-08-24T22:16:07.2231756Z   type: 'test'
+2026-08-24T22:16:07.2233387Z   ...
+2026-08-24T22:16:07.2235723Z # Subtest: copyDir: 跳过 symlink（防循环）
+2026-08-24T22:16:07.2238252Z ok 14 - copyDir: 跳过 symlink（防循环）
+2026-08-24T22:16:07.2240349Z   ---
+2026-08-24T22:16:07.2241459Z   duration_ms: 2.063323
+2026-08-24T22:16:07.2242518Z   type: 'test'
+2026-08-24T22:16:07.2243470Z   ...
+2026-08-24T22:16:07.2245210Z # Subtest: auditRemote: dynamic=true 时执行隔离验证并返回 dynamic 字段
+2026-08-24T22:16:07.2247175Z ok 15 - auditRemote: dynamic=true 时执行隔离验证并返回 dynamic 字段
+2026-08-24T22:16:07.2248604Z   ---
+2026-08-24T22:16:07.2249520Z   duration_ms: 2.366542
+2026-08-24T22:16:07.2250562Z   type: 'test'
+2026-08-24T22:16:07.2251470Z   ...
+2026-08-24T22:16:07.2252665Z # Subtest: auditRemote: dynamic=false（默认）不执行隔离验证
+2026-08-24T22:16:07.2255419Z ok 16 - auditRemote: dynamic=false（默认）不执行隔离验证
+2026-08-24T22:16:07.2256834Z   ---
+2026-08-24T22:16:07.2257746Z   duration_ms: 1.448192
+2026-08-24T22:16:07.2259041Z   type: 'test'
+2026-08-24T22:16:07.2259951Z   ...
+2026-08-24T22:16:07.2261375Z # Subtest: auditRemote: dynamic 验证失败不掩盖静态结果（fail 记入 dynamic 字段）
+2026-08-24T22:16:07.2263363Z ok 17 - auditRemote: dynamic 验证失败不掩盖静态结果（fail 记入 dynamic 字段）
+2026-08-24T22:16:07.2265124Z   ---
+2026-08-24T22:16:07.2266017Z   duration_ms: 1.353685
+2026-08-24T22:16:07.2267050Z   type: 'test'
+2026-08-24T22:16:07.2267938Z   ...
+2026-08-24T22:16:07.2323439Z # Subtest: good-plugin 判绿
+2026-08-24T22:16:07.2346150Z ok 18 - good-plugin 判绿
+2026-08-24T22:16:07.2356037Z   ---
+2026-08-24T22:16:07.2357719Z   duration_ms: 2.750761
+2026-08-24T22:16:07.2359047Z   type: 'test'
+2026-08-24T22:16:07.2359959Z   ...
+2026-08-24T22:16:07.2361082Z # Subtest: hook-plugin 判红（钩子面）
+2026-08-24T22:16:07.2362343Z ok 19 - hook-plugin 判红（钩子面）
+2026-08-24T22:16:07.2363415Z   ---
+2026-08-24T22:16:07.2364647Z   duration_ms: 0.924061
+2026-08-24T22:16:07.2366003Z   type: 'test'
+2026-08-24T22:16:07.2367490Z   ...
+2026-08-24T22:16:07.2369349Z # Subtest: startup-plugin 判红（启动重任务）
+2026-08-24T22:16:07.2371906Z ok 20 - startup-plugin 判红（启动重任务）
+2026-08-24T22:16:07.2373933Z   ---
+2026-08-24T22:16:07.2375802Z   duration_ms: 0.699109
+2026-08-24T22:16:07.2377641Z   type: 'test'
+2026-08-24T22:16:07.2379292Z   ...
+2026-08-24T22:16:07.2381640Z # Subtest: no-bundle-plugin 判黄（无 bundle）
+2026-08-24T22:16:07.2384921Z ok 21 - no-bundle-plugin 判黄（无 bundle）
+2026-08-24T22:16:07.2387082Z   ---
+2026-08-24T22:16:07.2388717Z   duration_ms: 0.386384
+2026-08-24T22:16:07.2390565Z   type: 'test'
+2026-08-24T22:16:07.2392206Z   ...
+2026-08-24T22:16:07.2394514Z # Subtest: heavy-deps-plugin 判黄（依赖过多）
+2026-08-24T22:16:07.2397084Z ok 22 - heavy-deps-plugin 判黄（依赖过多）
+2026-08-24T22:16:07.2399177Z   ---
+2026-08-24T22:16:07.2400835Z   duration_ms: 0.837739
+2026-08-24T22:16:07.2402612Z   type: 'test'
+2026-08-24T22:16:07.2404154Z   ...
+2026-08-24T22:16:07.2406318Z # Subtest: many-events-plugin 判黄（事件监听多）
+2026-08-24T22:16:07.2408786Z ok 23 - many-events-plugin 判黄（事件监听多）
+2026-08-24T22:16:07.2410837Z   ---
+2026-08-24T22:16:07.2412518Z   duration_ms: 0.384069
+2026-08-24T22:16:07.2414746Z   type: 'test'
+2026-08-24T22:16:07.2416429Z   ...
+2026-08-24T22:16:07.2418567Z # Subtest: preflight 判红（配置无效 unresolved/fail）
+2026-08-24T22:16:07.2421385Z ok 24 - preflight 判红（配置无效 unresolved/fail）
+2026-08-24T22:16:07.2423624Z   ---
+2026-08-24T22:16:07.2425544Z   duration_ms: 0.555811
+2026-08-24T22:16:07.2427412Z   type: 'test'
+2026-08-24T22:16:07.2429030Z   ...
+2026-08-24T22:16:07.2431054Z # Subtest: auditProfile 聚合多个插件
+2026-08-24T22:16:07.2433362Z ok 25 - auditProfile 聚合多个插件
+2026-08-24T22:16:07.2435574Z   ---
+2026-08-24T22:16:07.2437211Z   duration_ms: 1.862137
+2026-08-24T22:16:07.2439077Z   type: 'test'
+2026-08-24T22:16:07.2440726Z   ...
+2026-08-24T22:16:07.2442694Z # Subtest: renderReport 输出 markdown 含分级
+2026-08-24T22:16:07.2445483Z ok 26 - renderReport 输出 markdown 含分级
+2026-08-24T22:16:07.2447620Z   ---
+2026-08-24T22:16:07.2449243Z   duration_ms: 1.573597
+2026-08-24T22:16:07.2451129Z   type: 'test'
+2026-08-24T22:16:07.2452800Z   ...
+2026-08-24T22:16:07.2455456Z # Subtest: missing-inject-plugin 判红（ctx 服务未 inject 声明）
+2026-08-24T22:16:07.2458702Z ok 27 - missing-inject-plugin 判红（ctx 服务未 inject 声明）
+2026-08-24T22:16:07.2461769Z   ---
+2026-08-24T22:16:07.2463106Z   duration_ms: 0.671998
+2026-08-24T22:16:07.2464907Z   type: 'test'
+2026-08-24T22:16:07.2466270Z   ...
+2026-08-24T22:16:07.2468272Z # Subtest: unbuilt-entry-plugin 判红（main 指向未构建的 TS 源码）
+2026-08-24T22:16:07.2471076Z ok 28 - unbuilt-entry-plugin 判红（main 指向未构建的 TS 源码）
+2026-08-24T22:16:07.2473196Z   ---
+2026-08-24T22:16:07.2474833Z   duration_ms: 0.531866
+2026-08-24T22:16:07.2476467Z   type: 'test'
+2026-08-24T22:16:07.2477953Z   ...
+2026-08-24T22:16:07.2480084Z # Subtest: dep-range-plugin 判黄（@deepseek-ai/* 依赖区间不含宿主版本）
+2026-08-24T22:16:07.2483108Z ok 29 - dep-range-plugin 判黄（@deepseek-ai/* 依赖区间不含宿主版本）
+2026-08-24T22:16:07.2485463Z   ---
+2026-08-24T22:16:07.2486420Z   duration_ms: 0.630731
+2026-08-24T22:16:07.2487438Z   type: 'test'
+2026-08-24T22:16:07.2488336Z   ...
+2026-08-24T22:16:07.2489755Z # Subtest: dep-range-ok-plugin 判绿（依赖区间含宿主版本）
+2026-08-24T22:16:07.2491296Z ok 30 - dep-range-ok-plugin 判绿（依赖区间含宿主版本）
+2026-08-24T22:16:07.2492536Z   ---
+2026-08-24T22:16:07.2493400Z   duration_ms: 0.260979
+2026-08-24T22:16:07.2494681Z   type: 'test'
+2026-08-24T22:16:07.2495639Z   ...
+2026-08-24T22:16:07.2496830Z # Subtest: inject 声明齐全的插件不误报
+2026-08-24T22:16:07.2498738Z ok 31 - inject 声明齐全的插件不误报
+2026-08-24T22:16:07.2500355Z   ---
+2026-08-24T22:16:07.2501535Z   duration_ms: 0.17622
+2026-08-24T22:16:07.2502526Z   type: 'test'
+2026-08-24T22:16:07.2503410Z   ...
+2026-08-24T22:16:07.2504982Z # Subtest: const-inject 形式声明齐全不误报（构建产物常见）
+2026-08-24T22:16:07.2506861Z ok 32 - const-inject 形式声明齐全不误报（构建产物常见）
+2026-08-24T22:16:07.2508049Z   ---
+2026-08-24T22:16:07.2508984Z   duration_ms: 0.317043
+2026-08-24T22:16:07.2509984Z   type: 'test'
+2026-08-24T22:16:07.2510868Z   ...
+2026-08-24T22:16:07.2512032Z # Subtest: deferred-inject-plugin 判黄（函数内延迟访问未声明）
+2026-08-24T22:16:07.2513657Z ok 33 - deferred-inject-plugin 判黄（函数内延迟访问未声明）
+2026-08-24T22:16:07.2515758Z   ---
+2026-08-24T22:16:07.2516830Z   duration_ms: 0.225963
+2026-08-24T22:16:07.2517951Z   type: 'test'
+2026-08-24T22:16:07.2518906Z   ...
+2026-08-24T22:16:07.2520135Z # Subtest: sctx 别名不误报 missing-inject（词边界）
+2026-08-24T22:16:07.2522032Z ok 34 - sctx 别名不误报 missing-inject（词边界）
+2026-08-24T22:16:07.2523417Z   ---
+2026-08-24T22:16:07.2524786Z   duration_ms: 0.182432
+2026-08-24T22:16:07.2526027Z   type: 'test'
+2026-08-24T22:16:07.2526983Z   ...
+2026-08-24T22:16:07.2527897Z 1..34
+2026-08-24T22:16:07.2529181Z # tests 34
+2026-08-24T22:16:07.2530240Z # suites 0
+2026-08-24T22:16:07.2531121Z # pass 33
+2026-08-24T22:16:07.2531968Z # fail 1
+2026-08-24T22:16:07.2532817Z # cancelled 0
+2026-08-24T22:16:07.2533714Z # skipped 0
+2026-08-24T22:16:07.2534834Z # todo 0
+2026-08-24T22:16:07.2535772Z # duration_ms 137.745032
+2026-08-24T22:16:07.2570131Z ##[error]Process completed with exit code 1.
+2026-08-24T22:16:07.2874513Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-24T22:16:07.2879389Z Post job cleanup.
+2026-08-24T22:16:07.3738175Z [command]/usr/bin/git version
+2026-08-24T22:16:07.3765516Z git version 2.55.0
+2026-08-24T22:16:07.3811156Z Temporarily overriding HOME='/home/runner/work/_temp/e0f430e0-d4ee-4b96-b334-b8bc2141b4af' before making global git config changes
+2026-08-24T22:16:07.3816353Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-24T22:16:07.3819609Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/dsh-stability-audit/dsh-stability-audit
+2026-08-24T22:16:07.3854984Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-24T22:16:07.3891443Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-24T22:16:07.4145867Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-24T22:16:07.4178048Z http.https://github.com/.extraheader
+2026-08-24T22:16:07.4193586Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-08-24T22:16:07.4219360Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-24T22:16:07.4466902Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-24T22:16:07.4501064Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-24T22:16:07.4910242Z Cleaning up orphan processes
+2026-08-24T22:16:07.5370777Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

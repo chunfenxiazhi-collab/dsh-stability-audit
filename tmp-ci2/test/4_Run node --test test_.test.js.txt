@@ -1,0 +1,240 @@
+﻿2026-08-24T22:16:07.0617795Z ##[group]Run node --test test/*.test.js
+2026-08-24T22:16:07.0619388Z [36;1mnode --test test/*.test.js[0m
+2026-08-24T22:16:07.0677422Z shell: /usr/bin/bash -e {0}
+2026-08-24T22:16:07.0678712Z ##[endgroup]
+2026-08-24T22:16:07.1320758Z TAP version 13
+2026-08-24T22:16:07.1817185Z # Subtest: stageTarget 无空格路径原样返回
+2026-08-24T22:16:07.1819430Z ok 1 - stageTarget 无空格路径原样返回
+2026-08-24T22:16:07.1820683Z   ---
+2026-08-24T22:16:07.1821706Z   duration_ms: 1.274797
+2026-08-24T22:16:07.1822840Z   type: 'test'
+2026-08-24T22:16:07.1823831Z   ...
+2026-08-24T22:16:07.1825891Z # Subtest: findDshBin 返回存在的 bin 或 null
+2026-08-24T22:16:07.1828385Z ok 2 - findDshBin 返回存在的 bin 或 null
+2026-08-24T22:16:07.1830351Z   ---
+2026-08-24T22:16:07.1831959Z   duration_ms: 1.242908
+2026-08-24T22:16:07.1833806Z   type: 'test'
+2026-08-24T22:16:07.1835655Z   ...
+2026-08-24T22:16:07.1838311Z # Subtest: dynamicCheck 对无效 DSH_CLI 优雅处理（fallback 或 skipped）
+2026-08-24T22:16:07.1841570Z ok 3 - dynamicCheck 对无效 DSH_CLI 优雅处理（fallback 或 skipped）
+2026-08-24T22:16:07.1844015Z   ---
+2026-08-24T22:16:07.1846100Z   duration_ms: 0.722162
+2026-08-24T22:16:07.1847840Z   type: 'test'
+2026-08-24T22:16:07.1849479Z   ...
+2026-08-24T22:16:07.1913558Z # node:internal/modules/package_json_reader:314
+2026-08-24T22:16:07.1918047Z #   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+2026-08-24T22:16:07.1921529Z #         ^
+2026-08-24T22:16:07.1927326Z # Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@deepseek-ai/dsh-tools' imported from /home/runner/work/dsh-stability-audit/dsh-stability-audit/index.js
+2026-08-24T22:16:07.1934606Z #     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:314:9)
+2026-08-24T22:16:07.1939156Z #     at packageResolve (node:internal/modules/esm/resolve:768:81)
+2026-08-24T22:16:07.1943216Z #     at moduleResolve (node:internal/modules/esm/resolve:855:18)
+2026-08-24T22:16:07.1947462Z #     at defaultResolve (node:internal/modules/esm/resolve:985:11)
+2026-08-24T22:16:07.1951614Z #     at \#cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+2026-08-24T22:16:07.1956186Z #     at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+2026-08-24T22:16:07.1960964Z #     at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+2026-08-24T22:16:07.1965747Z #     at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+2026-08-24T22:16:07.1969131Z #   code: 'ERR_MODULE_NOT_FOUND'
+2026-08-24T22:16:07.1971539Z # }
+2026-08-24T22:16:07.1973484Z # Node.js v22.23.2
+2026-08-24T22:16:07.1976030Z # Subtest: test/index.test.js
+2026-08-24T22:16:07.1978611Z not ok 2 - test/index.test.js
+2026-08-24T22:16:07.1980886Z   ---
+2026-08-24T22:16:07.1982804Z   duration_ms: 40.427996
+2026-08-24T22:16:07.1985709Z   type: 'test'
+2026-08-24T22:16:07.1989310Z   location: '/home/runner/work/dsh-stability-audit/dsh-stability-audit/test/index.test.js:1:1'
+2026-08-24T22:16:07.1993458Z   failureType: 'testCodeFailure'
+2026-08-24T22:16:07.1996196Z   exitCode: 1
+2026-08-24T22:16:07.1998250Z   signal: ~
+2026-08-24T22:16:07.2000281Z   error: 'test failed'
+2026-08-24T22:16:07.2002532Z   code: 'ERR_TEST_FAILURE'
+2026-08-24T22:16:07.2005100Z   ...
+2026-08-24T22:16:07.2052755Z # Subtest: parseSpec: owner/repo 格式
+2026-08-24T22:16:07.2056141Z ok 5 - parseSpec: owner/repo 格式
+2026-08-24T22:16:07.2058852Z   ---
+2026-08-24T22:16:07.2060899Z   duration_ms: 1.770255
+2026-08-24T22:16:07.2063177Z   type: 'test'
+2026-08-24T22:16:07.2065428Z   ...
+2026-08-24T22:16:07.2067981Z # Subtest: parseSpec: github: 前缀格式
+2026-08-24T22:16:07.2074935Z ok 6 - parseSpec: github: 前缀格式
+2026-08-24T22:16:07.2106202Z   ---
+2026-08-24T22:16:07.2126358Z   duration_ms: 0.458118
+2026-08-24T22:16:07.2128566Z   type: 'test'
+2026-08-24T22:16:07.2130551Z   ...
+2026-08-24T22:16:07.2132827Z # Subtest: parseSpec: 完整 https 格式
+2026-08-24T22:16:07.2135784Z ok 7 - parseSpec: 完整 https 格式
+2026-08-24T22:16:07.2138090Z   ---
+2026-08-24T22:16:07.2140021Z   duration_ms: 0.26205
+2026-08-24T22:16:07.2142069Z   type: 'test'
+2026-08-24T22:16:07.2143993Z   ...
+2026-08-24T22:16:07.2147224Z # Subtest: parseSpec: owner/repo.git 尾部 .git 正确剥离
+2026-08-24T22:16:07.2150624Z ok 8 - parseSpec: owner/repo.git 尾部 .git 正确剥离
+2026-08-24T22:16:07.2153242Z   ---
+2026-08-24T22:16:07.2155545Z   duration_ms: 0.221454
+2026-08-24T22:16:07.2157702Z   type: 'test'
+2026-08-24T22:16:07.2159645Z   ...
+2026-08-24T22:16:07.2161930Z # Subtest: parseSpec: 非法格式返回 null
+2026-08-24T22:16:07.2164573Z ok 9 - parseSpec: 非法格式返回 null
+2026-08-24T22:16:07.2166558Z   ---
+2026-08-24T22:16:07.2168260Z   duration_ms: 0.37373
+2026-08-24T22:16:07.2170308Z   type: 'test'
+2026-08-24T22:16:07.2172144Z   ...
+2026-08-24T22:16:07.2175145Z # Subtest: auditRemote: cloneFn 注入审计 good-plugin → green
+2026-08-24T22:16:07.2178932Z ok 10 - auditRemote: cloneFn 注入审计 good-plugin → green
+2026-08-24T22:16:07.2181483Z   ---
+2026-08-24T22:16:07.2183123Z   duration_ms: 3.877511
+2026-08-24T22:16:07.2185336Z   type: 'test'
+2026-08-24T22:16:07.2186967Z   ...
+2026-08-24T22:16:07.2189646Z # Subtest: auditRemote: cloneFn 注入审计 hook-plugin → red hook-surface
+2026-08-24T22:16:07.2193529Z ok 11 - auditRemote: cloneFn 注入审计 hook-plugin → red hook-surface
+2026-08-24T22:16:07.2196486Z   ---
+2026-08-24T22:16:07.2198214Z   duration_ms: 1.993002
+2026-08-24T22:16:07.2200111Z   type: 'test'
+2026-08-24T22:16:07.2201754Z   ...
+2026-08-24T22:16:07.2203810Z # Subtest: auditRemote: clone 失败返回 fail 状态
+2026-08-24T22:16:07.2206951Z ok 12 - auditRemote: clone 失败返回 fail 状态
+2026-08-24T22:16:07.2209134Z   ---
+2026-08-24T22:16:07.2210818Z   duration_ms: 0.61436
+2026-08-24T22:16:07.2212642Z   type: 'test'
+2026-08-24T22:16:07.2225601Z   ...
+2026-08-24T22:16:07.2226819Z # Subtest: auditRemote: 清理临时目录
+2026-08-24T22:16:07.2228162Z ok 13 - auditRemote: 清理临时目录
+2026-08-24T22:16:07.2229301Z   ---
+2026-08-24T22:16:07.2230214Z   duration_ms: 1.87974
+2026-08-24T22:16:07.2231728Z   type: 'test'
+2026-08-24T22:16:07.2233360Z   ...
+2026-08-24T22:16:07.2235689Z # Subtest: copyDir: 跳过 symlink（防循环）
+2026-08-24T22:16:07.2238205Z ok 14 - copyDir: 跳过 symlink（防循环）
+2026-08-24T22:16:07.2240279Z   ---
+2026-08-24T22:16:07.2241452Z   duration_ms: 2.063323
+2026-08-24T22:16:07.2242513Z   type: 'test'
+2026-08-24T22:16:07.2243466Z   ...
+2026-08-24T22:16:07.2245195Z # Subtest: auditRemote: dynamic=true 时执行隔离验证并返回 dynamic 字段
+2026-08-24T22:16:07.2247170Z ok 15 - auditRemote: dynamic=true 时执行隔离验证并返回 dynamic 字段
+2026-08-24T22:16:07.2248599Z   ---
+2026-08-24T22:16:07.2249516Z   duration_ms: 2.366542
+2026-08-24T22:16:07.2250558Z   type: 'test'
+2026-08-24T22:16:07.2251466Z   ...
+2026-08-24T22:16:07.2252659Z # Subtest: auditRemote: dynamic=false（默认）不执行隔离验证
+2026-08-24T22:16:07.2255398Z ok 16 - auditRemote: dynamic=false（默认）不执行隔离验证
+2026-08-24T22:16:07.2256829Z   ---
+2026-08-24T22:16:07.2257742Z   duration_ms: 1.448192
+2026-08-24T22:16:07.2259036Z   type: 'test'
+2026-08-24T22:16:07.2259948Z   ...
+2026-08-24T22:16:07.2261369Z # Subtest: auditRemote: dynamic 验证失败不掩盖静态结果（fail 记入 dynamic 字段）
+2026-08-24T22:16:07.2263357Z ok 17 - auditRemote: dynamic 验证失败不掩盖静态结果（fail 记入 dynamic 字段）
+2026-08-24T22:16:07.2265090Z   ---
+2026-08-24T22:16:07.2266013Z   duration_ms: 1.353685
+2026-08-24T22:16:07.2267046Z   type: 'test'
+2026-08-24T22:16:07.2267934Z   ...
+2026-08-24T22:16:07.2323402Z # Subtest: good-plugin 判绿
+2026-08-24T22:16:07.2346116Z ok 18 - good-plugin 判绿
+2026-08-24T22:16:07.2356004Z   ---
+2026-08-24T22:16:07.2357688Z   duration_ms: 2.750761
+2026-08-24T22:16:07.2359042Z   type: 'test'
+2026-08-24T22:16:07.2359955Z   ...
+2026-08-24T22:16:07.2361075Z # Subtest: hook-plugin 判红（钩子面）
+2026-08-24T22:16:07.2362338Z ok 19 - hook-plugin 判红（钩子面）
+2026-08-24T22:16:07.2363411Z   ---
+2026-08-24T22:16:07.2364632Z   duration_ms: 0.924061
+2026-08-24T22:16:07.2365989Z   type: 'test'
+2026-08-24T22:16:07.2367472Z   ...
+2026-08-24T22:16:07.2369332Z # Subtest: startup-plugin 判红（启动重任务）
+2026-08-24T22:16:07.2371877Z ok 20 - startup-plugin 判红（启动重任务）
+2026-08-24T22:16:07.2373911Z   ---
+2026-08-24T22:16:07.2375775Z   duration_ms: 0.699109
+2026-08-24T22:16:07.2377619Z   type: 'test'
+2026-08-24T22:16:07.2379270Z   ...
+2026-08-24T22:16:07.2381319Z # Subtest: no-bundle-plugin 判黄（无 bundle）
+2026-08-24T22:16:07.2384889Z ok 21 - no-bundle-plugin 判黄（无 bundle）
+2026-08-24T22:16:07.2387058Z   ---
+2026-08-24T22:16:07.2388692Z   duration_ms: 0.386384
+2026-08-24T22:16:07.2390538Z   type: 'test'
+2026-08-24T22:16:07.2392180Z   ...
+2026-08-24T22:16:07.2394483Z # Subtest: heavy-deps-plugin 判黄（依赖过多）
+2026-08-24T22:16:07.2397059Z ok 22 - heavy-deps-plugin 判黄（依赖过多）
+2026-08-24T22:16:07.2399154Z   ---
+2026-08-24T22:16:07.2400801Z   duration_ms: 0.837739
+2026-08-24T22:16:07.2402605Z   type: 'test'
+2026-08-24T22:16:07.2404147Z   ...
+2026-08-24T22:16:07.2406305Z # Subtest: many-events-plugin 判黄（事件监听多）
+2026-08-24T22:16:07.2408775Z ok 23 - many-events-plugin 判黄（事件监听多）
+2026-08-24T22:16:07.2410808Z   ---
+2026-08-24T22:16:07.2412490Z   duration_ms: 0.384069
+2026-08-24T22:16:07.2414712Z   type: 'test'
+2026-08-24T22:16:07.2416399Z   ...
+2026-08-24T22:16:07.2418540Z # Subtest: preflight 判红（配置无效 unresolved/fail）
+2026-08-24T22:16:07.2421323Z ok 24 - preflight 判红（配置无效 unresolved/fail）
+2026-08-24T22:16:07.2423598Z   ---
+2026-08-24T22:16:07.2425516Z   duration_ms: 0.555811
+2026-08-24T22:16:07.2427386Z   type: 'test'
+2026-08-24T22:16:07.2429005Z   ...
+2026-08-24T22:16:07.2431027Z # Subtest: auditProfile 聚合多个插件
+2026-08-24T22:16:07.2433329Z ok 25 - auditProfile 聚合多个插件
+2026-08-24T22:16:07.2435544Z   ---
+2026-08-24T22:16:07.2437184Z   duration_ms: 1.862137
+2026-08-24T22:16:07.2439051Z   type: 'test'
+2026-08-24T22:16:07.2440700Z   ...
+2026-08-24T22:16:07.2442665Z # Subtest: renderReport 输出 markdown 含分级
+2026-08-24T22:16:07.2445452Z ok 26 - renderReport 输出 markdown 含分级
+2026-08-24T22:16:07.2447606Z   ---
+2026-08-24T22:16:07.2449229Z   duration_ms: 1.573597
+2026-08-24T22:16:07.2451111Z   type: 'test'
+2026-08-24T22:16:07.2452785Z   ...
+2026-08-24T22:16:07.2455431Z # Subtest: missing-inject-plugin 判红（ctx 服务未 inject 声明）
+2026-08-24T22:16:07.2458651Z ok 27 - missing-inject-plugin 判红（ctx 服务未 inject 声明）
+2026-08-24T22:16:07.2461737Z   ---
+2026-08-24T22:16:07.2463097Z   duration_ms: 0.671998
+2026-08-24T22:16:07.2464848Z   type: 'test'
+2026-08-24T22:16:07.2466262Z   ...
+2026-08-24T22:16:07.2468252Z # Subtest: unbuilt-entry-plugin 判红（main 指向未构建的 TS 源码）
+2026-08-24T22:16:07.2471066Z ok 28 - unbuilt-entry-plugin 判红（main 指向未构建的 TS 源码）
+2026-08-24T22:16:07.2473188Z   ---
+2026-08-24T22:16:07.2474820Z   duration_ms: 0.531866
+2026-08-24T22:16:07.2476458Z   type: 'test'
+2026-08-24T22:16:07.2477940Z   ...
+2026-08-24T22:16:07.2480074Z # Subtest: dep-range-plugin 判黄（@deepseek-ai/* 依赖区间不含宿主版本）
+2026-08-24T22:16:07.2483095Z ok 29 - dep-range-plugin 判黄（@deepseek-ai/* 依赖区间不含宿主版本）
+2026-08-24T22:16:07.2485440Z   ---
+2026-08-24T22:16:07.2486414Z   duration_ms: 0.630731
+2026-08-24T22:16:07.2487433Z   type: 'test'
+2026-08-24T22:16:07.2488331Z   ...
+2026-08-24T22:16:07.2489748Z # Subtest: dep-range-ok-plugin 判绿（依赖区间含宿主版本）
+2026-08-24T22:16:07.2491291Z ok 30 - dep-range-ok-plugin 判绿（依赖区间含宿主版本）
+2026-08-24T22:16:07.2492532Z   ---
+2026-08-24T22:16:07.2493396Z   duration_ms: 0.260979
+2026-08-24T22:16:07.2494668Z   type: 'test'
+2026-08-24T22:16:07.2495609Z   ...
+2026-08-24T22:16:07.2496819Z # Subtest: inject 声明齐全的插件不误报
+2026-08-24T22:16:07.2498729Z ok 31 - inject 声明齐全的插件不误报
+2026-08-24T22:16:07.2500347Z   ---
+2026-08-24T22:16:07.2501529Z   duration_ms: 0.17622
+2026-08-24T22:16:07.2502521Z   type: 'test'
+2026-08-24T22:16:07.2503406Z   ...
+2026-08-24T22:16:07.2504962Z # Subtest: const-inject 形式声明齐全不误报（构建产物常见）
+2026-08-24T22:16:07.2506853Z ok 32 - const-inject 形式声明齐全不误报（构建产物常见）
+2026-08-24T22:16:07.2508044Z   ---
+2026-08-24T22:16:07.2508980Z   duration_ms: 0.317043
+2026-08-24T22:16:07.2509980Z   type: 'test'
+2026-08-24T22:16:07.2510865Z   ...
+2026-08-24T22:16:07.2512026Z # Subtest: deferred-inject-plugin 判黄（函数内延迟访问未声明）
+2026-08-24T22:16:07.2513653Z ok 33 - deferred-inject-plugin 判黄（函数内延迟访问未声明）
+2026-08-24T22:16:07.2515735Z   ---
+2026-08-24T22:16:07.2516823Z   duration_ms: 0.225963
+2026-08-24T22:16:07.2517945Z   type: 'test'
+2026-08-24T22:16:07.2518901Z   ...
+2026-08-24T22:16:07.2520127Z # Subtest: sctx 别名不误报 missing-inject（词边界）
+2026-08-24T22:16:07.2521800Z ok 34 - sctx 别名不误报 missing-inject（词边界）
+2026-08-24T22:16:07.2523411Z   ---
+2026-08-24T22:16:07.2524765Z   duration_ms: 0.182432
+2026-08-24T22:16:07.2526020Z   type: 'test'
+2026-08-24T22:16:07.2526977Z   ...
+2026-08-24T22:16:07.2527892Z 1..34
+2026-08-24T22:16:07.2529163Z # tests 34
+2026-08-24T22:16:07.2530229Z # suites 0
+2026-08-24T22:16:07.2531117Z # pass 33
+2026-08-24T22:16:07.2531964Z # fail 1
+2026-08-24T22:16:07.2532813Z # cancelled 0
+2026-08-24T22:16:07.2533711Z # skipped 0
+2026-08-24T22:16:07.2534825Z # todo 0
+2026-08-24T22:16:07.2535768Z # duration_ms 137.745032
+2026-08-24T22:16:07.2570103Z ##[error]Process completed with exit code 1.

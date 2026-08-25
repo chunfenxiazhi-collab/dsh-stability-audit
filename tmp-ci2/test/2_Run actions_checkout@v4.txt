@@ -1,0 +1,74 @@
+﻿2026-08-24T22:16:06.0168144Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-08-24T22:16:06.0177226Z ##[group]Run actions/checkout@v4
+2026-08-24T22:16:06.0177997Z with:
+2026-08-24T22:16:06.0178566Z   repository: chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.0182743Z   token: ***
+2026-08-24T22:16:06.0183179Z   ssh-strict: true
+2026-08-24T22:16:06.0183620Z   ssh-user: git
+2026-08-24T22:16:06.0184067Z   persist-credentials: true
+2026-08-24T22:16:06.0184822Z   clean: true
+2026-08-24T22:16:06.0185277Z   sparse-checkout-cone-mode: true
+2026-08-24T22:16:06.0185807Z   fetch-depth: 1
+2026-08-24T22:16:06.0186243Z   fetch-tags: false
+2026-08-24T22:16:06.0186703Z   show-progress: true
+2026-08-24T22:16:06.0187156Z   lfs: false
+2026-08-24T22:16:06.0187578Z   submodules: false
+2026-08-24T22:16:06.0188061Z   set-safe-directory: true
+2026-08-24T22:16:06.0188572Z   allow-unsafe-pr-checkout: false
+2026-08-24T22:16:06.0189374Z ##[endgroup]
+2026-08-24T22:16:06.1183179Z Syncing repository: chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.1186340Z ##[group]Getting Git version info
+2026-08-24T22:16:06.1187269Z Working directory is '/home/runner/work/dsh-stability-audit/dsh-stability-audit'
+2026-08-24T22:16:06.1188633Z [command]/usr/bin/git version
+2026-08-24T22:16:06.1256762Z git version 2.55.0
+2026-08-24T22:16:06.1313863Z ##[endgroup]
+2026-08-24T22:16:06.1330017Z Temporarily overriding HOME='/home/runner/work/_temp/bfdc1c4c-1e0e-4478-9ff1-bd7f43b5fdcf' before making global git config changes
+2026-08-24T22:16:06.1332516Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-24T22:16:06.1336796Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/dsh-stability-audit/dsh-stability-audit
+2026-08-24T22:16:06.1389468Z Deleting the contents of '/home/runner/work/dsh-stability-audit/dsh-stability-audit'
+2026-08-24T22:16:06.1393626Z ##[group]Initializing the repository
+2026-08-24T22:16:06.1399365Z [command]/usr/bin/git init /home/runner/work/dsh-stability-audit/dsh-stability-audit
+2026-08-24T22:16:06.1488310Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-08-24T22:16:06.1489853Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-08-24T22:16:06.1490846Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-08-24T22:16:06.1491598Z hint: call:
+2026-08-24T22:16:06.1491999Z hint:
+2026-08-24T22:16:06.1492517Z hint: 	git config --global init.defaultBranch <name>
+2026-08-24T22:16:06.1493135Z hint:
+2026-08-24T22:16:06.1493713Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-08-24T22:16:06.1494910Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-08-24T22:16:06.1495703Z hint:
+2026-08-24T22:16:06.1496157Z hint: 	git branch -m <name>
+2026-08-24T22:16:06.1496768Z hint:
+2026-08-24T22:16:06.1497392Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-08-24T22:16:06.1503138Z Initialized empty Git repository in /home/runner/work/dsh-stability-audit/dsh-stability-audit/.git/
+2026-08-24T22:16:06.1515086Z [command]/usr/bin/git remote add origin https://github.com/chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.1561235Z ##[endgroup]
+2026-08-24T22:16:06.1562598Z ##[group]Disabling automatic garbage collection
+2026-08-24T22:16:06.1566478Z [command]/usr/bin/git config --local gc.auto 0
+2026-08-24T22:16:06.1597674Z ##[endgroup]
+2026-08-24T22:16:06.1598852Z ##[group]Setting up auth
+2026-08-24T22:16:06.1604074Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-24T22:16:06.1664656Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-24T22:16:06.2023952Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-24T22:16:06.2062636Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-24T22:16:06.2282608Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-24T22:16:06.2320350Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-24T22:16:06.2538981Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-08-24T22:16:06.2576750Z ##[endgroup]
+2026-08-24T22:16:06.2585774Z ##[group]Fetching the repository
+2026-08-24T22:16:06.2587394Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bda44dd77abf6991187e8bd6f572efd496f2b3c3:refs/remotes/origin/master
+2026-08-24T22:16:06.4788426Z From https://github.com/chunfenxiazhi-collab/dsh-stability-audit
+2026-08-24T22:16:06.4789627Z  * [new ref]         bda44dd77abf6991187e8bd6f572efd496f2b3c3 -> origin/master
+2026-08-24T22:16:06.4793775Z ##[endgroup]
+2026-08-24T22:16:06.4794911Z ##[group]Determining the checkout info
+2026-08-24T22:16:06.4796819Z ##[endgroup]
+2026-08-24T22:16:06.4802782Z [command]/usr/bin/git sparse-checkout disable
+2026-08-24T22:16:06.4853098Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-08-24T22:16:06.4884919Z ##[group]Checking out the ref
+2026-08-24T22:16:06.4889084Z [command]/usr/bin/git checkout --progress --force -B master refs/remotes/origin/master
+2026-08-24T22:16:06.4979321Z Reset branch 'master'
+2026-08-24T22:16:06.4985044Z branch 'master' set up to track 'origin/master'.
+2026-08-24T22:16:06.4990134Z ##[endgroup]
+2026-08-24T22:16:06.5032906Z [command]/usr/bin/git log -1 --format=%H
+2026-08-24T22:16:06.5060296Z bda44dd77abf6991187e8bd6f572efd496f2b3c3

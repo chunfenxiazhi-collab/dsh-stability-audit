@@ -122,3 +122,35 @@ test("sctx 别名不误报 missing-inject（词边界）", () => {
   const r = auditPlugin({ dir: path.join(FIX, "sctx-plugin"), preflight: PREFLIGHT })
   assert.ok(!r.findings.some(f => f.ruleId === "missing-inject"), JSON.stringify(r.findings))
 })
+
+test("v0.8: 每条 finding 都带 fix 修复建议（可执行命令）", () => {
+  const cases = [
+    ["hook-plugin", "hook-surface"],
+    ["startup-plugin", "startup-work"],
+    ["missing-inject-plugin", "missing-inject"],
+    ["unbuilt-entry-plugin", "unbuilt-entry"],
+  ]
+  for (const [fixture, ruleId] of cases) {
+    const r = auditPlugin({ dir: path.join(FIX, fixture), preflight: PREFLIGHT })
+    const f = r.findings.find(x => x.ruleId === ruleId)
+    assert.ok(f, `${fixture} 应命中 ${ruleId}`)
+    assert.ok(f.fix && f.fix.length > 10, `${ruleId} 应有可执行修复建议: ${JSON.stringify(f.fix)}`)
+  }
+})
+
+test("v0.8: no-bundle/heavy-deps/install-scripts 也带 fix", () => {
+  for (const [fixture, ruleId] of [["no-bundle-plugin", "no-bundle"], ["heavy-deps-plugin", "heavy-deps"]]) {
+    const r = auditPlugin({ dir: path.join(FIX, fixture), preflight: PREFLIGHT })
+    const f = r.findings.find(x => x.ruleId === ruleId)
+    assert.ok(f && f.fix && f.fix.length > 5, `${ruleId} 应有 fix`)
+  }
+})
+
+test("v0.8: renderJson 结构化输出含 fix", async () => {
+  const { renderJson } = await import("../lib/report.js")
+  const r = await auditProfile({ plugins: [{ dir: path.join(FIX, "hook-plugin") }], preflight: PREFLIGHT })
+  const j = JSON.parse(renderJson(r))
+  assert.equal(j.schema, "dsh-stability-audit/v1")
+  assert.equal(j.plugins[0].findings[0].ruleId, "hook-surface")
+  assert.ok(j.plugins[0].findings[0].fix.length > 5, "fix 应存在")
+})

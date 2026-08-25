@@ -1,6 +1,6 @@
 {
   "name": "dsh-stability-audit",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Scan installed DeepSeek Harness plugins and grade stability risk (hook surface, startup work, preflight health, packaging, dependencies). 扫描已安装插件的稳定性风险（钩子面/启动任务/预检/打包/依赖）。",
   "type": "module",
   "main": "index.js",
