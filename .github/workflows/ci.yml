@@ -8,6 +8,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --no-save --no-package-lock @deepseek-ai/dsh-tools
       - run: node --test test/*.test.js
       - run: node --check index.js && node --check cli.mjs && node --check lib/scanner.js && node --check lib/dyncheck.js && node --check lib/report.js && node --check lib/remote.js
