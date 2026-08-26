@@ -141,3 +141,13 @@ test("auditRemote: dynamicCheckFn 返回 install-blocked 时透传 installStatus
   assert.equal(r.dynamic.installStatus, "install-blocked")
   assert.equal(r.grade, "green", "静态结果不受动态影响")
 })
+
+test("auditRemote: sourceCommit 字段存在（注入 clone 无 git 历史 → null 不崩溃）", async () => {
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+  })
+  assert.ok("sourceCommit" in r, "应包含 sourceCommit 字段（可为 null）")
+  // 真实 git clone 场景才有 commit——这里注入目录无 .git，验证不崩溃
+  assert.equal(r.grade, "green")
+})
