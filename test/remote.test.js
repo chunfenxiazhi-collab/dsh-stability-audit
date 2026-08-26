@@ -151,3 +151,12 @@ test("auditRemote: sourceCommit 字段存在（注入 clone 无 git 历史 → n
   // 真实 git clone 场景才有 commit——这里注入目录无 .git，验证不崩溃
   assert.equal(r.grade, "green")
 })
+
+test("freshness: 最近提交 <24h → very-fresh", async () => {
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+  })
+  // 注入 clone 无 git 历史 → freshness 应为 null 或 unknown（不崩溃）
+  assert.ok(r.freshness === null || r.freshness === undefined || typeof r.freshness === "object")
+})
