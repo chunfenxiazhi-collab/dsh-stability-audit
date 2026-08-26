@@ -130,3 +130,14 @@ test("auditRemote: dynamic 验证失败不掩盖静态结果（fail 记入 dynam
   assert.equal(r.grade, "red", "静态结果仍为 red")
   assert.equal(r.dynamic.status, "fail")
 })
+
+test("auditRemote: dynamicCheckFn 返回 install-blocked 时透传 installStatus", async () => {
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+    dynamic: true,
+    dynamicCheckFn: async () => ({ status: "fail", installStatus: "install-blocked", detail: "Install blocked: pnpm blocked git-source build scripts" }),
+  })
+  assert.equal(r.dynamic.installStatus, "install-blocked")
+  assert.equal(r.grade, "green", "静态结果不受动态影响")
+})
