@@ -168,3 +168,12 @@ test("dormancy: 字段存在且不崩溃（注入 clone 无 git 历史）", asyn
   })
   assert.ok("dormancy" in r, "应包含 dormancy 字段（可为 null）")
 })
+
+test("auditRemote: 返回 dependencies（--online 漏洞查询输入）", async () => {
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+  })
+  // good-plugin 的 package.json 无 dependencies → null 或不崩溃
+  assert.ok("dependencies" in r)
+})

@@ -8,6 +8,7 @@ import { auditProfile } from "./lib/scanner.js"
 import { renderReport, renderJson } from "./lib/report.js"
 import { auditRemote } from "./lib/remote.js"
 import { scanLockfile, aiVersionMismatches } from "./lib/lockscan.js"
+import { queryOSV } from "./lib/osv.js"
 
 // --lock: profile 依赖树健康扫描（pnpm-lock 深度）
 if (process.argv.includes("--lock")) {
@@ -46,9 +47,18 @@ if (remoteArg !== -1) {
   if (!specs.length) { console.error("Usage: node cli.mjs --remote <owner/repo[,owner/repo...]> [--dynamic]"); process.exit(1) }
   const dynamic = process.argv.includes("--dynamic")
   const results = []
+  const online = process.argv.includes("--online")
   for (const spec of specs) {
     const result = await auditRemote({ spec, dynamic })
     if (result.status === "fail") { console.error(`Remote audit failed ${spec}: ${result.detail}`); continue }
+    if (online) {
+      // --online: 查 OSV 漏洞库（依赖树 → 已知漏洞）
+      const deps = Object.keys(result.dependencies || {})
+      if (deps.length) {
+        const vulns = await queryOSV(deps.map(n => ({ name: n, ecosystem: "npm" })))
+        if (vulns.length) result.vulnerabilities = vulns
+      }
+    }
     results.push(result)
   }
   const audit = { generatedAt: new Date().toISOString(), plugins: results,
