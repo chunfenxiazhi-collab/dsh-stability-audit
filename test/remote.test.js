@@ -160,3 +160,11 @@ test("freshness: 最近提交 <24h → very-fresh", async () => {
   // 注入 clone 无 git 历史 → freshness 应为 null 或 unknown（不崩溃）
   assert.ok(r.freshness === null || r.freshness === undefined || typeof r.freshness === "object")
 })
+
+test("dormancy: 字段存在且不崩溃（注入 clone 无 git 历史）", async () => {
+  const r = await auditRemote({
+    spec: "test/good-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "good-plugin"), dest) },
+  })
+  assert.ok("dormancy" in r, "应包含 dormancy 字段（可为 null）")
+})
