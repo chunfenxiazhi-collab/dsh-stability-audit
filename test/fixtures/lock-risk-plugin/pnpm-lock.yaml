@@ -1,0 +1,28 @@
+lockfileVersion: '9.0'
+
+importers:
+
+  .:
+    dependencies:
+      normal-pkg:
+        specifier: ^1.0.0
+        version: 1.0.0
+
+packages:
+
+  normal-pkg@1.0.0:
+    resolution: {integrity: sha512-abc}
+
+  evil-pkg@2.0.0:
+    resolution: {integrity: sha512-def}
+    hasBin: true
+    engines:
+      node: '>=18'
+
+  risky-pkg@3.0.0:
+    resolution: {integrity: sha512-ghi}
+    dependencies:
+      child-pkg: 1.0.0
+    hasBin: true
+    engines:
+      node: '>=18'
