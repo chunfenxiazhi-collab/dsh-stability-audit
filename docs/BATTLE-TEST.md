@@ -47,3 +47,24 @@
 ### 不足#3（小）：dsh-score clone 偶发失败
 - 网络抖动导致 clone 失败被跳过（已有容错：continue 不中断整体）
 - 可接受（重试即可）
+
+## 第二轮检验（2026-08-27，awesome 列表随机 10 插件）
+
+| 插件 | 静态 | 动态 | 判定 | 检验点 |
+|---|---|---|---|---|
+| dsh-alive | 🟢 | PASS | ✅ | 干净 |
+| dsh-skill-picker | 🟢 | PASS | ✅ | 干净 |
+| dsh-chat-width | 🟢 | PASS | ✅ | 干净 |
+| dsh-web-mobile-fix | 🟢 | PASS | ✅ | 干净 |
+| dsh-status-rotator | 🟡 | PASS | ✅ | 轮询黄合理 |
+| dsh-anchored-monitor | 🟡 | PASS | ✅ | 轮询+端点黄合理 |
+| dsh-hud | 🔴 | PASS | ✅ | **startup-work 红但可装**——验证"红=需查非必然坏" |
+| dsh-plugin-open-app | 🔴 | PASS | ✅ | 同上 |
+| dsh-spotlight | 🔴 | install-blocked | ✅ | unbuilt-entry 真（main 缺失）+ prepare 非纯构建黄真 |
+| dsh-docking-layout | 🔴 | install-blocked | ✅ | unbuilt-entry 真 |
+
+**结论**：零误判。验证了：
+1. **红≠必然坏**：hud/open-app startup-work 红但装得上（设计语义正确）
+2. **unbuilt-entry 高准确**：2 个 blocked 均确认 main 缺失
+3. **install-scripts 对自定义 prepare 报黄**：spotlight prepare=node scripts/prepare.mjs 非纯构建，报黄有据
+4. **已知局限**：prepare 脚本内容静态看不到——prepare.mjs 若只是拷贝会误报黄（可接受，黄=需查）
