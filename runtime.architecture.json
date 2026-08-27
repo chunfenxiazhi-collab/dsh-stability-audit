@@ -1,0 +1,372 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "dsh-stability-audit v0.13.0 — 插件审计流水线",
+  "subtitle": "静态 15 规则 → 隔离动态验证 → 远程预检 → 漏洞/依赖扫描 → 落盘报告",
+  "output": "docs/dsh-stability-audit-architecture.html",
+  "quality_profile": "standard",
+  "views": [
+   {
+    "id": "audit-path",
+    "label": "主审计路径",
+    "focus": [
+     "index",
+     "collect",
+     "scanner",
+     "report",
+     "report-store"
+    ],
+    "note": "工具/CLI 触发：收集 → 规则引擎 → 报告 → 落盘与变化检测。"
+   },
+   {
+    "id": "remote-path",
+    "label": "远程预检路径",
+    "focus": [
+     "cli",
+     "remote",
+     "dyncheck",
+     "osv",
+     "lockscan",
+     "npm-registry"
+    ],
+    "note": "clone → 静态+动态验证，--online 查 OSV 漏洞，--lock 扫依赖树。"
+   },
+   {
+    "id": "host-path",
+    "label": "宿主集成",
+    "focus": [
+     "index",
+     "tools",
+     "report-store",
+     "host-fs"
+    ],
+    "note": "作为 dsh 插件：注册工具 + 启动自动扫描 + 报告持久化。"
+   }
+  ]
+ },
+ "layout": {
+  "mode": "grid",
+  "origin": [
+   40,
+   80
+  ],
+  "cols": 4,
+  "gapX": 30,
+  "gapY": 40,
+  "cellW": 140,
+  "cellH": 64
+ },
+ "components": [
+  {
+   "id": "index",
+   "type": "backend",
+   "label": "index.js",
+   "sublabel": "宿主入口 apply()",
+   "tag": "零依赖",
+   "row": 0,
+   "col": 0
+  },
+  {
+   "id": "tools",
+   "type": "security",
+   "label": "ctx.tools",
+   "sublabel": "stability_audit",
+   "row": 0,
+   "col": 1
+  },
+  {
+   "id": "report",
+   "type": "backend",
+   "label": "report.js",
+   "sublabel": "Markdown / JSON",
+   "row": 0,
+   "col": 2
+  },
+  {
+   "id": "report-store",
+   "type": "database",
+   "label": "report-store.js",
+   "sublabel": "落盘 + 变化检测",
+   "tag": "~/.dsh",
+   "row": 0,
+   "col": 3
+  },
+  {
+   "id": "cli",
+   "type": "backend",
+   "label": "cli.mjs",
+   "sublabel": "命令行入口",
+   "tag": "4 种模式",
+   "row": 1,
+   "col": 0
+  },
+  {
+   "id": "collect",
+   "type": "backend",
+   "label": "collect.js",
+   "sublabel": "插件收集",
+   "row": 1,
+   "col": 1
+  },
+  {
+   "id": "scanner",
+   "type": "database",
+   "label": "scanner.js",
+   "sublabel": "15 规则引擎",
+   "tag": "38 正则",
+   "row": 1,
+   "col": 2
+  },
+  {
+   "id": "probe",
+   "type": "backend",
+   "label": "probe.js",
+   "sublabel": "P1 故障分类",
+   "tag": "仅测试 · 未接入",
+   "row": 1,
+   "col": 3
+  },
+  {
+   "id": "remote",
+   "type": "cloud",
+   "label": "remote.js",
+   "sublabel": "远程预检",
+   "tag": "commit+新鲜度/停更",
+   "row": 2,
+   "col": 0
+  },
+  {
+   "id": "dyncheck",
+   "type": "cloud",
+   "label": "dyncheck.js",
+   "sublabel": "隔离验证",
+   "tag": "临时环境",
+   "row": 2,
+   "col": 1
+  },
+  {
+   "id": "lockscan",
+   "type": "database",
+   "label": "lockscan.js",
+   "sublabel": "依赖树扫描",
+   "tag": "pnpm-lock",
+   "row": 3,
+   "col": 0
+  },
+  {
+   "id": "host-fs",
+   "type": "external",
+   "label": "~/.dsh",
+   "sublabel": "profiles / lockfile",
+   "row": 4,
+   "col": 1
+  },
+  {
+   "id": "npm-registry",
+   "type": "external",
+   "label": "npm / GitHub",
+   "sublabel": "远程插件源",
+   "row": 4,
+   "col": 2
+  },
+  {
+   "id": "osv",
+   "type": "external",
+   "label": "OSV API",
+   "sublabel": "已知漏洞库",
+   "tag": "--online",
+   "row": 4,
+   "col": 3
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "离线核心（零依赖）",
+   "wraps": [
+    "index",
+    "tools",
+    "cli",
+    "collect",
+    "scanner",
+    "probe",
+    "remote",
+    "dyncheck",
+    "lockscan",
+    "report",
+    "report-store"
+   ]
+  },
+  {
+   "kind": "security-group",
+   "label": "外部",
+   "wraps": [
+    "host-fs",
+    "npm-registry",
+    "osv"
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "index-tools",
+   "from": "index",
+   "to": "tools",
+   "label": "register",
+   "variant": "emphasis"
+  },
+  {
+   "id": "index-collect",
+   "from": "index",
+   "to": "collect",
+   "label": "收集",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "index-scanner",
+   "from": "index",
+   "to": "scanner",
+   "label": "审计",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "index-report",
+   "from": "index",
+   "to": "report",
+   "label": "渲染",
+   "fromSide": "bottom",
+   "toSide": "bottom"
+  },
+  {
+   "id": "index-report-store",
+   "from": "index",
+   "to": "report-store",
+   "label": "落盘",
+   "fromSide": "bottom",
+   "toSide": "bottom"
+  },
+  {
+   "id": "cli-collect",
+   "from": "cli",
+   "to": "collect",
+   "label": "收集",
+   "variant": "emphasis"
+  },
+  {
+   "id": "cli-scanner",
+   "from": "cli",
+   "to": "scanner",
+   "label": "审计",
+   "fromSide": "bottom",
+   "toSide": "bottom"
+  },
+  {
+   "id": "cli-report",
+   "from": "cli",
+   "to": "report",
+   "label": "渲染",
+   "fromSide": "bottom",
+   "toSide": "bottom",
+   "via": [
+    [
+     100,
+     266
+    ],
+    [
+     690,
+     266
+    ],
+    [
+     690,
+     162
+    ],
+    [
+     440,
+     162
+    ]
+   ]
+  },
+  {
+   "id": "cli-remote",
+   "from": "cli",
+   "to": "remote",
+   "label": "--remote",
+   "variant": "emphasis",
+   "fromSide": "bottom",
+   "toSide": "top",
+   "labelAt": [
+    100,
+    266
+   ]
+  },
+  {
+   "id": "cli-lockscan",
+   "from": "cli",
+   "to": "lockscan",
+   "label": "--lock",
+   "fromSide": "bottom",
+   "toSide": "right"
+  },
+  {
+   "id": "cli-osv",
+   "from": "cli",
+   "to": "osv",
+   "label": "--online",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "remote-scanner",
+   "from": "remote",
+   "to": "scanner",
+   "label": "静态审计",
+   "fromSide": "top",
+   "toSide": "bottom",
+   "labelAt": [
+    450,
+    255
+   ]
+  },
+  {
+   "id": "remote-dyncheck",
+   "from": "remote",
+   "to": "dyncheck",
+   "label": "动态验证"
+  },
+  {
+   "id": "scanner-dyncheck",
+   "from": "scanner",
+   "to": "dyncheck",
+   "label": "--dynamic",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "remote-npm",
+   "from": "remote",
+   "to": "npm-registry",
+   "label": "clone",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "collect-host",
+   "from": "collect",
+   "to": "host-fs",
+   "label": "读取",
+   "fromSide": "bottom",
+   "toSide": "left"
+  },
+  {
+   "id": "lockscan-host",
+   "from": "lockscan",
+   "to": "host-fs",
+   "label": "读取",
+   "fromSide": "bottom",
+   "toSide": "left"
+  }
+ ]
+}
