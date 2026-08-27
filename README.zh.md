@@ -75,6 +75,17 @@ node cli.mjs --remote owner/repo --json    # 远程预检 JSON 输出
 
 **原则**：只读、绝不运行被审插件、零副作用。分级是"供人工确认的建议"，不是判决。
 
+## 架构图
+
+![dsh-stability-audit 运行时架构图](docs/dsh-stability-audit-architecture.svg)
+
+运行时架构图由 [dsh-archify](https://github.com/GongYuanCaiJi/dsh-archify) 绘制（MIT——[tt-a1i/archify](https://github.com/tt-a1i/archify) 的 dsh 移植版，上游亦 MIT，源出 Cocoon AI 的 "architecture-diagram-generator"）。MIT 声明已内嵌于渲染 HTML 的 head；规格与评估记录随仓库保存：
+
+- 规格（中文）：[runtime.architecture.json](./runtime.architecture.json)
+- 渲染版（交互、引导视图）：[docs/dsh-stability-audit-architecture.html](./docs/dsh-stability-audit-architecture.html)
+- English version: [README.md](./README.md) — architecture diagram in English
+- 评估记录：[docs/ARCHIFY-EVALUATION.md](./docs/ARCHIFY-EVALUATION.md)
+
 ## JSON 输出（供 agent 消费）
 
 ```sh

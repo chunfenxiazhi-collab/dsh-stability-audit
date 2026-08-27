@@ -5,8 +5,9 @@
 
 ## 产物
 
-- `runtime.architecture.json` —— 架构规格（14 组件 / 17 连接 / 2 边界 / 3 引导视图）
-- `docs/dsh-stability-audit-architecture.html` —— 渲染产物（单文件 663KB，交互式）
+- `runtime.architecture.json`（中文）/ `runtime.architecture.en.json`（英文）—— 架构规格（14 组件 / 17 连接 / 2 边界 / 3 引导视图）
+- `docs/dsh-stability-audit-architecture.html`（中文）/ `.en.html`（英文）—— 交互渲染产物（单文件，交互式）
+- `docs/dsh-stability-audit-architecture.svg`（中文）/ `.en.svg`（英文）—— README 嵌入用独立 SVG（内嵌样式 + 深色背景）
 
 ## 验证结果
 

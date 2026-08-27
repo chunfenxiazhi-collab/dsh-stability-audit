@@ -77,12 +77,13 @@ Every hit carries a **🔧 fix suggestion** (executable command or manual action
 
 ## Architecture diagram
 
-![dsh-stability-audit runtime architecture](docs/dsh-stability-audit-architecture.svg)
+![dsh-stability-audit runtime architecture](docs/dsh-stability-audit-architecture.en.svg)
 
 The runtime architecture is drawn with [dsh-archify](https://github.com/GongYuanCaiJi/dsh-archify) (MIT — a dsh port of [tt-a1i/archify](https://github.com/tt-a1i/archify), also MIT, itself derived from Cocoon AI's "architecture-diagram-generator"). The MIT notice is embedded in the rendered HTML head; spec and evaluation notes are kept in-repo:
 
-- Spec: [runtime.architecture.json](./runtime.architecture.json)
-- Rendered (interactive, guided views): [docs/dsh-stability-audit-architecture.html](./docs/dsh-stability-audit-architecture.html)
+- Spec (EN): [runtime.architecture.en.json](./runtime.architecture.en.json)
+- Rendered EN (interactive, guided views): [docs/dsh-stability-audit-architecture.en.html](./docs/dsh-stability-audit-architecture.en.html)
+- 中文版（Chinese version）: [README.zh.md](./README.zh.md) — 架构图见中文版
 - Evaluation notes: [docs/ARCHIFY-EVALUATION.md](./docs/ARCHIFY-EVALUATION.md)
 
 ## JSON output (for agents)

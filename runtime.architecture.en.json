@@ -1,0 +1,372 @@
+{
+ "schema_version": 1,
+ "diagram_type": "architecture",
+ "meta": {
+  "title": "dsh-stability-audit v0.13.0 — Plugin Audit Pipeline",
+  "subtitle": "Static 15-rule engine → isolated dynamic verification → remote pre-audit → vulnerability/dependency scan → persisted report",
+  "output": "docs/dsh-stability-audit-architecture.en.html",
+  "quality_profile": "standard",
+  "views": [
+   {
+    "id": "audit-path",
+    "label": "Main audit path",
+    "focus": [
+     "index",
+     "collect",
+     "scanner",
+     "report",
+     "report-store"
+    ],
+    "note": "Tool/CLI entry: collect → rule engine → report → persist with change detection."
+   },
+   {
+    "id": "remote-path",
+    "label": "Remote pre-audit path",
+    "focus": [
+     "cli",
+     "remote",
+     "dyncheck",
+     "osv",
+     "lockscan",
+     "npm-registry"
+    ],
+    "note": "clone → static + dynamic verification; --online queries OSV; --lock scans the dependency tree."
+   },
+   {
+    "id": "host-path",
+    "label": "Host integration",
+    "focus": [
+     "index",
+     "tools",
+     "report-store",
+     "host-fs"
+    ],
+    "note": "As a dsh plugin: registers a tool, auto-scan at startup, persisted report."
+   }
+  ]
+ },
+ "layout": {
+  "mode": "grid",
+  "origin": [
+   40,
+   80
+  ],
+  "cols": 4,
+  "gapX": 30,
+  "gapY": 40,
+  "cellW": 140,
+  "cellH": 64
+ },
+ "components": [
+  {
+   "id": "index",
+   "type": "backend",
+   "label": "index.js",
+   "sublabel": "Host entry apply()",
+   "tag": "zero deps",
+   "row": 0,
+   "col": 0
+  },
+  {
+   "id": "tools",
+   "type": "security",
+   "label": "ctx.tools",
+   "sublabel": "stability_audit tool",
+   "row": 0,
+   "col": 1
+  },
+  {
+   "id": "report",
+   "type": "backend",
+   "label": "report.js",
+   "sublabel": "Markdown / JSON",
+   "row": 0,
+   "col": 2
+  },
+  {
+   "id": "report-store",
+   "type": "database",
+   "label": "report-store.js",
+   "sublabel": "Persist + change detection",
+   "tag": "~/.dsh",
+   "row": 0,
+   "col": 3
+  },
+  {
+   "id": "cli",
+   "type": "backend",
+   "label": "cli.mjs",
+   "sublabel": "CLI entry",
+   "tag": "4 modes",
+   "row": 1,
+   "col": 0
+  },
+  {
+   "id": "collect",
+   "type": "backend",
+   "label": "collect.js",
+   "sublabel": "Plugin discovery",
+   "row": 1,
+   "col": 1
+  },
+  {
+   "id": "scanner",
+   "type": "database",
+   "label": "scanner.js",
+   "sublabel": "15-rule engine",
+   "tag": "38 regexes",
+   "row": 1,
+   "col": 2
+  },
+  {
+   "id": "probe",
+   "type": "backend",
+   "label": "probe.js",
+   "sublabel": "P1 failure classification",
+   "tag": "test-only · not wired",
+   "row": 1,
+   "col": 3
+  },
+  {
+   "id": "remote",
+   "type": "cloud",
+   "label": "remote.js",
+   "sublabel": "Remote pre-audit",
+   "tag": "fresh+dormant",
+   "row": 2,
+   "col": 0
+  },
+  {
+   "id": "dyncheck",
+   "type": "cloud",
+   "label": "dyncheck.js",
+   "sublabel": "Isolated verification",
+   "tag": "temp DSH_HOME",
+   "row": 2,
+   "col": 1
+  },
+  {
+   "id": "lockscan",
+   "type": "database",
+   "label": "lockscan.js",
+   "sublabel": "Dependency tree scan",
+   "tag": "pnpm-lock",
+   "row": 3,
+   "col": 0
+  },
+  {
+   "id": "host-fs",
+   "type": "external",
+   "label": "~/.dsh",
+   "sublabel": "profiles / lockfile",
+   "row": 4,
+   "col": 1
+  },
+  {
+   "id": "npm-registry",
+   "type": "external",
+   "label": "npm / GitHub",
+   "sublabel": "Remote plugin sources",
+   "row": 4,
+   "col": 2
+  },
+  {
+   "id": "osv",
+   "type": "external",
+   "label": "OSV API",
+   "sublabel": "Known vulnerability DB",
+   "tag": "--online",
+   "row": 4,
+   "col": 3
+  }
+ ],
+ "boundaries": [
+  {
+   "kind": "region",
+   "label": "Offline core (zero deps)",
+   "wraps": [
+    "index",
+    "tools",
+    "cli",
+    "collect",
+    "scanner",
+    "probe",
+    "remote",
+    "dyncheck",
+    "lockscan",
+    "report",
+    "report-store"
+   ]
+  },
+  {
+   "kind": "security-group",
+   "label": "External",
+   "wraps": [
+    "host-fs",
+    "npm-registry",
+    "osv"
+   ]
+  }
+ ],
+ "connections": [
+  {
+   "id": "index-tools",
+   "from": "index",
+   "to": "tools",
+   "label": "register",
+   "variant": "emphasis"
+  },
+  {
+   "id": "index-collect",
+   "from": "index",
+   "to": "collect",
+   "label": "collect",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "index-scanner",
+   "from": "index",
+   "to": "scanner",
+   "label": "audit",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "index-report",
+   "from": "index",
+   "to": "report",
+   "label": "render",
+   "fromSide": "bottom",
+   "toSide": "bottom"
+  },
+  {
+   "id": "index-report-store",
+   "from": "index",
+   "to": "report-store",
+   "label": "persist",
+   "fromSide": "bottom",
+   "toSide": "bottom"
+  },
+  {
+   "id": "cli-collect",
+   "from": "cli",
+   "to": "collect",
+   "label": "collect",
+   "variant": "emphasis"
+  },
+  {
+   "id": "cli-scanner",
+   "from": "cli",
+   "to": "scanner",
+   "label": "audit",
+   "fromSide": "bottom",
+   "toSide": "bottom"
+  },
+  {
+   "id": "cli-report",
+   "from": "cli",
+   "to": "report",
+   "label": "render",
+   "fromSide": "bottom",
+   "toSide": "bottom",
+   "via": [
+    [
+     100,
+     266
+    ],
+    [
+     690,
+     266
+    ],
+    [
+     690,
+     162
+    ],
+    [
+     440,
+     162
+    ]
+   ]
+  },
+  {
+   "id": "cli-remote",
+   "from": "cli",
+   "to": "remote",
+   "label": "--remote",
+   "variant": "emphasis",
+   "fromSide": "bottom",
+   "toSide": "top",
+   "labelAt": [
+    100,
+    266
+   ]
+  },
+  {
+   "id": "cli-lockscan",
+   "from": "cli",
+   "to": "lockscan",
+   "label": "--lock",
+   "fromSide": "bottom",
+   "toSide": "right"
+  },
+  {
+   "id": "cli-osv",
+   "from": "cli",
+   "to": "osv",
+   "label": "--online",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "remote-scanner",
+   "from": "remote",
+   "to": "scanner",
+   "label": "static audit",
+   "fromSide": "top",
+   "toSide": "bottom",
+   "labelAt": [
+    450,
+    255
+   ]
+  },
+  {
+   "id": "remote-dyncheck",
+   "from": "remote",
+   "to": "dyncheck",
+   "label": "dynamic"
+  },
+  {
+   "id": "scanner-dyncheck",
+   "from": "scanner",
+   "to": "dyncheck",
+   "label": "--dynamic",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "remote-npm",
+   "from": "remote",
+   "to": "npm-registry",
+   "label": "clone",
+   "fromSide": "bottom",
+   "toSide": "top"
+  },
+  {
+   "id": "collect-host",
+   "from": "collect",
+   "to": "host-fs",
+   "label": "read",
+   "fromSide": "bottom",
+   "toSide": "left"
+  },
+  {
+   "id": "lockscan-host",
+   "from": "lockscan",
+   "to": "host-fs",
+   "label": "read",
+   "fromSide": "bottom",
+   "toSide": "left"
+  }
+ ]
+}
