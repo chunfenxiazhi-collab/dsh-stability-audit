@@ -75,6 +75,14 @@ Every hit carries a **🔧 fix suggestion** (executable command or manual action
 
 **Principles**: read-only, never runs the audited plugin, zero side effects. Grades are suggestions for human confirmation, not verdicts.
 
+## Architecture diagram
+
+The runtime architecture is drawn with [dsh-archify](https://github.com/GongYuanCaiJi/dsh-archify) (MIT — a dsh port of [tt-a1i/archify](https://github.com/tt-a1i/archify), also MIT, itself derived from Cocoon AI's "architecture-diagram-generator"). The MIT notice is embedded in the rendered HTML head; spec and evaluation notes are kept in-repo:
+
+- Spec: [runtime.architecture.json](./runtime.architecture.json)
+- Rendered (interactive, guided views): [docs/dsh-stability-audit-architecture.html](./docs/dsh-stability-audit-architecture.html)
+- Evaluation notes: [docs/ARCHIFY-EVALUATION.md](./docs/ARCHIFY-EVALUATION.md)
+
 ## JSON output (for agents)
 
 ```sh

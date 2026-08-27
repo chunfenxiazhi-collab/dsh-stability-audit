@@ -51,6 +51,18 @@
 - 但它只适合"人工维护的规格 → 渲染"模式（不是 Mermaid 式自动布局），
   对 hub 密集图需要预留走廊，showcase 标准不宜强求。
 
+## 许可证与来源标注（合规）
+
+dsh-archify 与上游均为 **MIT**（Copyright (c) 2026 tt-a1i (Archify)、Copyright (c) 2025 Cocoon AI
+"architecture-diagram-generator"、Copyright (c) 2026 GongYuanCaiJi (dsh port)）。
+渲染产物为单文件 HTML，**内嵌了 archify 的模板与运行时 JS（属软件实质部分副本）**，
+因此按 MIT 要求在产物中保留版权与许可声明：
+
+- `docs/dsh-stability-audit-architecture.html`：`<head>` 内已注入完整 MIT 声明注释
+  （`<meta name="generator" content="archify 2.14.0">` 之下）。
+- `README.md`：新增 "Architecture diagram" 小节，注明工具、上游与协议链接。
+- 后续若重渲染 HTML，需重新注入声明（渲染器本身不生成版权文本）。
+
 ## 备查
 
 - archify 克隆：`C:\Users\29704\.dsh\plugin-src\dsh-archify`（Node ^22.19、dsh 0.1.0-rc.6）
