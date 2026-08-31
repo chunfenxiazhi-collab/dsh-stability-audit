@@ -229,3 +229,47 @@ test("v0.11: renderJson 输出带 endpoints 字段", async () => {
   const f = j.plugins[0].findings.find(x => x.ruleId === "remote-endpoints")
   assert.ok(f && f.endpoints && f.endpoints.some(e => e.includes("api.deepseek.com")), JSON.stringify(f))
 })
+
+// ===== FIX 2026-08-31 battle-test：exports 入口 / workspace 根 / client 豁免 =====
+import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs"
+import { tmpdir } from "node:os"
+
+function tmpDirWith(files) {
+  const d = mkdtempSync(path.join(tmpdir(), "audit-fix-"))
+  for (const [rel, content] of Object.entries(files)) {
+    const fp = path.join(d, rel)
+    mkdirSync(path.dirname(fp), { recursive: true })
+    writeFileSync(fp, content)
+  }
+  return d
+}
+
+test("FIX-1: exports[\".\"] 入口存在 → 不判 no-entry/unbuilt-entry", () => {
+  const d = tmpDirWith({ "preset/index.mjs": "export default {}" })
+  const r = auditPlugin({ dir: d, pkg: { name: "exports-entry", version: "0.1.0", exports: { ".": "./preset/index.mjs" }, dsh: { bundle: { patch: "./cordis.patch.yml" } } } })
+  assert.ok(!r.findings.some(f => f.ruleId === "no-entry"), JSON.stringify(r.findings))
+  assert.ok(!r.findings.some(f => f.ruleId === "unbuilt-entry"), JSON.stringify(r.findings))
+})
+
+test("FIX-1b: exports 指向不存在文件 → unbuilt-entry 红", () => {
+  const d = tmpDirWith({})
+  const r = auditPlugin({ dir: d, pkg: { name: "exports-unbuilt", version: "0.1.0", exports: { ".": "./lib/missing.js" }, dsh: { bundle: { patch: "./x.yml" } } } })
+  assert.ok(r.findings.some(f => f.ruleId === "unbuilt-entry" && f.severity === "red"), JSON.stringify(r.findings))
+})
+
+test("FIX-2: workspace 根（private + packages/）豁免 no-entry/no-bundle/unbuilt-entry", () => {
+  const d = tmpDirWith({ "packages/a/package.json": "{}" })
+  const r = auditPlugin({ dir: d, pkg: { name: "ws-root", version: "0.0.0", private: true } })
+  assert.equal(r.grade, "green", JSON.stringify(r.findings))
+  assert.ok(!r.findings.some(f => f.ruleId === "no-entry"), JSON.stringify(r.findings))
+  assert.ok(!r.findings.some(f => f.ruleId === "no-bundle"), JSON.stringify(r.findings))
+  assert.ok(!r.findings.some(f => f.ruleId === "unbuilt-entry"), JSON.stringify(r.findings))
+})
+
+test("FIX-4: client 插件（dsh.client + exports[\"./client\"] 产物存在）豁免 no-bundle/no-entry", () => {
+  const d = tmpDirWith({ "lib/client.js": "export default {}" })
+  const r = auditPlugin({ dir: d, pkg: { name: "client-only", version: "0.1.0", exports: { "./client": "./lib/client.js" }, dsh: { client: { inject: [], platform: "web" } } } })
+  assert.ok(!r.findings.some(f => f.ruleId === "no-bundle"), JSON.stringify(r.findings))
+  assert.ok(!r.findings.some(f => f.ruleId === "no-entry"), JSON.stringify(r.findings))
+})
+

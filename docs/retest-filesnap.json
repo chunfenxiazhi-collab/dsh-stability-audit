@@ -1,0 +1,51 @@
+{
+  "schema": "dsh-stability-audit/v1",
+  "generatedAt": "2026-08-31T12:21:47.759Z",
+  "summary": {
+    "red": 1,
+    "yellow": 0,
+    "green": 0
+  },
+  "plugins": [
+    {
+      "name": "dsh-filesnap",
+      "version": "0.2.1",
+      "grade": "red",
+      "source": "https://github.com/extracurricular-ai/dsh-filesnap.git",
+      "sourceCommit": "e7d13a9",
+      "freshness": {
+        "ageHours": 83.3,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 83
+      },
+      "dependencies": {
+        "filesnap": "^0.4.0",
+        "zod": "^4.4.3"
+      },
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": [
+        {
+          "ruleId": "no-bundle",
+          "severity": "yellow",
+          "desc": "No dsh.bundle manifest declared (installed as a plain dep, never activated)",
+          "evidence": "package.json",
+          "fix": "Add a dsh.bundle.patch declaration in package.json (e.g. \"dsh\": { \"bundle\": { \"patch\": \"./cordis.patch.yml\" } })",
+          "endpoints": null
+        },
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "yellow",
+          "desc": "Entry lib/index.js (from main/exports) points to a missing file (git source lacks build artifacts; npm package 0.2.1 has them)",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    }
+  ]
+}

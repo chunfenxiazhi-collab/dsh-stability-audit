@@ -1,0 +1,111 @@
+{
+  "schema": "dsh-stability-audit/v1",
+  "generatedAt": "2026-08-31T12:20:01.853Z",
+  "summary": {
+    "red": 1,
+    "yellow": 0,
+    "green": 3
+  },
+  "plugins": [
+    {
+      "name": "empty-fort-strategy",
+      "version": "0.3.0",
+      "grade": "green",
+      "source": "https://github.com/HuaJi2077/empty-fort-strategy.git",
+      "sourceCommit": "5fb5d86",
+      "freshness": {
+        "ageHours": 54.7,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 55
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": []
+    },
+    {
+      "name": "dsh-skin-pack",
+      "version": "0.0.0",
+      "grade": "green",
+      "source": "https://github.com/keman-ai/dsh-skin-pack.git",
+      "sourceCommit": "5f52f39",
+      "freshness": {
+        "ageHours": 6.4,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 6
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": []
+    },
+    {
+      "name": "dsh-sshworkspaces",
+      "version": "0.1.0",
+      "grade": "green",
+      "source": "https://github.com/tiphareth0/dsh-sshworkspaces.git",
+      "sourceCommit": "d5d11e6",
+      "freshness": {
+        "ageHours": 4.9,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 5
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": []
+    },
+    {
+      "name": "dsh-filesnap",
+      "version": "0.2.1",
+      "grade": "red",
+      "source": "https://github.com/extracurricular-ai/dsh-filesnap.git",
+      "sourceCommit": "e7d13a9",
+      "freshness": {
+        "ageHours": 83.2,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 83
+      },
+      "dependencies": {
+        "filesnap": "^0.4.0",
+        "zod": "^4.4.3"
+      },
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": [
+        {
+          "ruleId": "no-bundle",
+          "severity": "yellow",
+          "desc": "No dsh.bundle manifest declared (installed as a plain dep, never activated)",
+          "evidence": "package.json",
+          "fix": "Add a dsh.bundle.patch declaration in package.json (e.g. \"dsh\": { \"bundle\": { \"patch\": \"./cordis.patch.yml\" } })",
+          "endpoints": null
+        },
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "red",
+          "desc": "Entry lib/index.js (from main/exports) points to a missing file",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    }
+  ]
+}

@@ -177,3 +177,28 @@ test("auditRemote: 返回 dependencies（--online 漏洞查询输入）", async 
   // good-plugin 的 package.json 无 dependencies → null 或不崩溃
   assert.ok("dependencies" in r)
 })
+
+// ===== FIX 2026-08-31 battle-test：unbuilt-entry 与 npm 发布产物对照 =====
+test("FIX-3: unbuilt-entry + npm 包含构建产物 → 降黄并注明", async () => {
+  const r = await auditRemote({
+    spec: "test/unbuilt-entry-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "unbuilt-entry-plugin"), dest) },
+    npmArtifactCheckFn: async (name, entry) => ({ exists: true, version: "0.2.1" }),
+  })
+  const f = r.findings.find(x => x.ruleId === "unbuilt-entry")
+  assert.ok(f, JSON.stringify(r.findings))
+  assert.equal(f.severity, "yellow", JSON.stringify(f))
+  assert.match(f.desc, /npm package 0\.2\.1/)
+})
+
+test("FIX-3b: unbuilt-entry + npm 无对应包 → 保持红", async () => {
+  const r = await auditRemote({
+    spec: "test/unbuilt-entry-plugin",
+    cloneFn: async (url, dest) => { copyDir(path.join(FIX, "unbuilt-entry-plugin"), dest) },
+    npmArtifactCheckFn: async (name, entry) => null,
+  })
+  const f = r.findings.find(x => x.ruleId === "unbuilt-entry")
+  assert.ok(f, JSON.stringify(r.findings))
+  assert.equal(f.severity, "red", JSON.stringify(f))
+})
+

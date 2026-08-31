@@ -36,7 +36,22 @@
 - **unbuilt-entry + 动态 boot 失败**互相印证（discord），规则与动态验证协同工作正常。
 - 两个结构健全的新插件（masterprompt/github-workbench）全绿，无误报。
 
+## 修复验证（同日完成，commit 见 git log）
+
+四条规则空白已按 docs/规则修复方案-20260831.md 修复（TDD：6 新用例先红后绿）：
+
+| 修复 | 实现 | 复测结果 |
+|---|---|---|
+| FIX-1 no-entry 识别 exports 入口 | `resolveEntry(pkg)`（main/exports["."]/exports["./client"]） | empty-fort-strategy red → **green** |
+| FIX-2 workspace 根豁免 | `isWorkspaceRoot(pkg, dir)`（private + workspaces/packages/） | skin-pack red → **green**；sshworkspaces red → **green** |
+| FIX-3 unbuilt-entry 对照 npm 产物 | `defaultNpmArtifactCheck`（registry + tarball 检查，可注入） | filesnap unbuilt-entry red → **yellow**（注明 npm 0.2.1 已构建） |
+| FIX-4 client 插件 no-bundle 豁免 | dsh.client + exports["./client"] 产物存在 → 豁免 | 单测覆盖（client-only fixture） |
+
+- 回归：84 tests / 83 pass / 1 skip / 0 fail（原 78 + 新 6）。
+- 踩坑记录：FIX-3 真实链路首跑未生效——`writeFileSync` 未 import（ReferenceError 被静默 catch 吞掉，历史 readFileSync 同款坑重演）；已修复并复测通过。
+
 ## 原始证据
 
 - `docs/battletest-20260831.json`（--json 输出，13 插件全量）
+- `docs/retest-20260831.json`、`docs/retest-filesnap.json`（修复后复测输出）
 - clone 取证目录：`%TEMP%\dsh-verify-*`（package.json/源码核验）
