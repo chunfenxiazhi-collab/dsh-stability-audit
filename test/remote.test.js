@@ -189,6 +189,7 @@ test("FIX-3: unbuilt-entry + npm 包含构建产物 → 降黄并注明", async 
   assert.ok(f, JSON.stringify(r.findings))
   assert.equal(f.severity, "yellow", JSON.stringify(f))
   assert.match(f.desc, /npm package 0\.2\.1/)
+  assert.equal(r.grade, "yellow", "降级后 grade 应同步为 yellow: " + JSON.stringify(r.findings))
 })
 
 test("FIX-3b: unbuilt-entry + npm 无对应包 → 保持红", async () => {

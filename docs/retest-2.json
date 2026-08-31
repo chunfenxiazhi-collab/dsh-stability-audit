@@ -1,0 +1,75 @@
+{
+  "schema": "dsh-stability-audit/v1",
+  "generatedAt": "2026-08-31T12:24:45.075Z",
+  "summary": {
+    "red": 0,
+    "yellow": 2,
+    "green": 0
+  },
+  "plugins": [
+    {
+      "name": "@addozhang/dsh-discord",
+      "version": "0.3.0",
+      "grade": "yellow",
+      "source": "https://github.com/addozhang/dsh-discord.git",
+      "sourceCommit": "03cb6aa",
+      "freshness": {
+        "ageHours": 1.8,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 2
+      },
+      "dependencies": {
+        "@deepseek-ai/dsh-credentials": "0.1.1-rc.2",
+        "@deepseek-ai/dsh-settings": "0.1.1-rc.2",
+        "@deepseek-ai/dsh-storage-domain": "0.1.1-rc.2",
+        "@deepseek-ai/schemastery": "3.18.1",
+        "zod": "^4.4.3"
+      },
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": [
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "yellow",
+          "desc": "Entry ./lib/index.js (from main/exports) points to a missing file (git source lacks build artifacts; npm package 0.3.0 has them)",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-mcp-diff",
+      "version": "0.4.0",
+      "grade": "yellow",
+      "source": "https://github.com/Fakek0f3sT/dsh-mcp-diff.git",
+      "sourceCommit": "230e085",
+      "freshness": {
+        "ageHours": 0.1,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 0
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": null,
+      "findings": [
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "yellow",
+          "desc": "Entry ./lib/index.js (from main/exports) points to a missing file (git source lacks build artifacts; npm package 0.3.0 has them)",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    }
+  ]
+}
