@@ -1,0 +1,537 @@
+{
+  "schema": "dsh-stability-audit/v1",
+  "generatedAt": "2026-08-31T12:04:08.126Z",
+  "summary": {
+    "red": 7,
+    "yellow": 4,
+    "green": 2
+  },
+  "plugins": [
+    {
+      "name": "dsh-filesnap",
+      "version": "0.2.1",
+      "grade": "red",
+      "source": "https://github.com/extracurricular-ai/dsh-filesnap.git",
+      "sourceCommit": "e7d13a9",
+      "freshness": {
+        "ageHours": 82.9,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 83
+      },
+      "dependencies": {
+        "filesnap": "^0.4.0",
+        "zod": "^4.4.3"
+      },
+      "vulnerabilities": [
+        {
+          "id": "GHSA-m95q-7qp3-xv42",
+          "modified": "2024-09-06T19:11:37Z"
+        }
+      ],
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 35719
+      },
+      "findings": [
+        {
+          "ruleId": "no-bundle",
+          "severity": "yellow",
+          "desc": "No dsh.bundle manifest declared (installed as a plain dep, never activated)",
+          "evidence": "package.json",
+          "fix": "Add a dsh.bundle.patch declaration in package.json (e.g. \"dsh\": { \"bundle\": { \"patch\": \"./cordis.patch.yml\" } })",
+          "endpoints": null
+        },
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "red",
+          "desc": "main points to lib/index.js but file does not exist",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-tavern",
+      "version": "2.3.1",
+      "grade": "yellow",
+      "source": "https://github.com/chen731215-dev/dsh-tavern-v2.git",
+      "sourceCommit": "b83c452",
+      "freshness": {
+        "ageHours": 10.2,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 10
+      },
+      "dependencies": {
+        "dsh-muv-table": "^0.2.1",
+        "dsh-muv-engine": "^0.3.1"
+      },
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 20728
+      },
+      "findings": [
+        {
+          "ruleId": "missing-inject",
+          "severity": "yellow",
+          "desc": "Deferred access: sessionPersistence,sessions not declared in inject (current: [webServer,systemPrompt] ) (may be undefined at runtime)",
+          "evidence": "lib/index.js",
+          "fix": "Add an export const inject declaration in the entry file (e.g. export const inject = ['tools']); or use ctx.serviceName?. optional access to avoid load-time crashes",
+          "endpoints": null
+        },
+        {
+          "ruleId": "remote-endpoints",
+          "severity": "yellow",
+          "desc": "Hardcoded remote endpoints: 4: https://opencode.ai/zen/go/v1, https://api.deepseek.com, https://gcli.ggchan.dev, http://localhost",
+          "evidence": "lib/index.js",
+          "fix": "Review endpoint usage: confirm it is a normal API call; remove suspicious endpoints (non-official domains) or add user confirmation",
+          "endpoints": [
+            "https://opencode.ai/zen/go/v1",
+            "https://api.deepseek.com",
+            "https://gcli.ggchan.dev",
+            "http://localhost"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dsh-free-models-hub",
+      "version": "0.3.1",
+      "grade": "yellow",
+      "source": "https://github.com/yu-wenchao/dsh-free-models-hub.git",
+      "sourceCommit": "3c98fc5",
+      "freshness": {
+        "ageHours": 77.6,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 78
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 14498
+      },
+      "findings": [
+        {
+          "ruleId": "remote-endpoints",
+          "severity": "yellow",
+          "desc": "Hardcoded remote endpoints: 1: http://127.0.0.1:${actualPort`",
+          "evidence": "./lib/index.js",
+          "fix": "Review endpoint usage: confirm it is a normal API call; remove suspicious endpoints (non-official domains) or add user confirmation",
+          "endpoints": [
+            "http://127.0.0.1:${actualPort`"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dsh-improved-inline-edit",
+      "version": "0.1.0",
+      "grade": "yellow",
+      "source": "https://github.com/xiaosurongjia/dsh-improved-inline-edit.git",
+      "sourceCommit": "394d744",
+      "freshness": {
+        "ageHours": 47.5,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 47
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 8864
+      },
+      "findings": [
+        {
+          "ruleId": "remote-endpoints",
+          "severity": "yellow",
+          "desc": "Hardcoded remote endpoints: 1: http://localhost",
+          "evidence": "./index.js",
+          "fix": "Review endpoint usage: confirm it is a normal API call; remove suspicious endpoints (non-official domains) or add user confirmation",
+          "endpoints": [
+            "http://localhost"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dsh-skin-pack",
+      "version": "0.0.0",
+      "grade": "red",
+      "source": "https://github.com/keman-ai/dsh-skin-pack.git",
+      "sourceCommit": "5f52f39",
+      "freshness": {
+        "ageHours": 6,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 6
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 38668
+      },
+      "findings": [
+        {
+          "ruleId": "no-bundle",
+          "severity": "yellow",
+          "desc": "No dsh.bundle manifest declared (installed as a plain dep, never activated)",
+          "evidence": "package.json",
+          "fix": "Add a dsh.bundle.patch declaration in package.json (e.g. \"dsh\": { \"bundle\": { \"patch\": \"./cordis.patch.yml\" } })",
+          "endpoints": null
+        },
+        {
+          "ruleId": "no-entry",
+          "severity": "red",
+          "desc": "No main field and no candidate entry file (index.js/lib/index.js etc.); loader fails importing by package name",
+          "evidence": "package.json",
+          "fix": "Add a main field in package.json pointing to the real entry (or add an index.js entry); build first if no build artifacts exist",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "empty-fort-strategy",
+      "version": "0.3.0",
+      "grade": "red",
+      "source": "https://github.com/HuaJi2077/empty-fort-strategy.git",
+      "sourceCommit": "5fb5d86",
+      "freshness": {
+        "ageHours": 54.4,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 54
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 10258
+      },
+      "findings": [
+        {
+          "ruleId": "no-entry",
+          "severity": "red",
+          "desc": "No main field and no candidate entry file (index.js/lib/index.js etc.); loader fails importing by package name",
+          "evidence": "package.json",
+          "fix": "Add a main field in package.json pointing to the real entry (or add an index.js entry); build first if no build artifacts exist",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-plugin-save-token",
+      "version": "2.1.3",
+      "grade": "red",
+      "source": "https://github.com/vibe-any/dsh-plugin-save-token.git",
+      "sourceCommit": "82edaf7",
+      "freshness": {
+        "ageHours": 54.3,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 54
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 27375
+      },
+      "findings": [
+        {
+          "ruleId": "hook-surface",
+          "severity": "red",
+          "desc": "Registers tool hooks/middleware (pre/post-execute intercepts the whole tool chain; barricade incident)",
+          "evidence": "./lib/index.js",
+          "fix": "Review hook code: ensure interception is necessary and fail-safe; to disable temporarily add disabled: true to the entry in the profile cordis.patch.yml",
+          "endpoints": null
+        },
+        {
+          "ruleId": "missing-inject",
+          "severity": "red",
+          "desc": "Load-time sync access: tools not declared in inject (no inject declared) (boot crash: cannot get property without inject)",
+          "evidence": "./lib/index.js",
+          "fix": "Add an export const inject declaration in the entry file (e.g. export const inject = ['tools']); or use ctx.serviceName?. optional access to avoid load-time crashes",
+          "endpoints": null
+        },
+        {
+          "ruleId": "missing-dep",
+          "severity": "red",
+          "desc": "Entry imports not declared in package.json: @deepseek-ai/dsh-tools (Cannot find package after install)",
+          "evidence": "./lib/index.js",
+          "fix": "Declare the missing package in package.json dependencies/peerDependencies (version including the host one) then reinstall",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-quick-phrases",
+      "version": "0.7.5",
+      "grade": "yellow",
+      "source": "https://github.com/xianrui69/dsh-quick-phrases.git",
+      "sourceCommit": "3a02237",
+      "freshness": {
+        "ageHours": 74.9,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 75
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 10195
+      },
+      "findings": [
+        {
+          "ruleId": "remote-endpoints",
+          "severity": "yellow",
+          "desc": "Hardcoded remote endpoints: 1: http://${host`",
+          "evidence": "lib/index.js",
+          "fix": "Review endpoint usage: confirm it is a normal API call; remove suspicious endpoints (non-official domains) or add user confirmation",
+          "endpoints": [
+            "http://${host`"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "@addozhang/dsh-discord",
+      "version": "0.2.3",
+      "grade": "red",
+      "source": "https://github.com/addozhang/dsh-discord.git",
+      "sourceCommit": "c842465",
+      "freshness": {
+        "ageHours": 5.3,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 5
+      },
+      "dependencies": {
+        "@deepseek-ai/dsh-credentials": "0.1.1-rc.2",
+        "@deepseek-ai/dsh-settings": "0.1.1-rc.2",
+        "@deepseek-ai/dsh-storage-domain": "0.1.1-rc.2",
+        "@deepseek-ai/schemastery": "3.18.1",
+        "zod": "^4.4.3"
+      },
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "fail",
+        "installStatus": "ok",
+        "detail": "Install ok but boot failed (exit 1)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 27900
+      },
+      "findings": [
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "red",
+          "desc": "main points to ./lib/index.js but file does not exist",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-mcp-diff",
+      "version": "0.3.0",
+      "grade": "red",
+      "source": "https://github.com/Fakek0f3sT/dsh-mcp-diff.git",
+      "sourceCommit": "68c38a5",
+      "freshness": {
+        "ageHours": 3.8,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 4
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "fail",
+        "installStatus": "install-blocked",
+        "detail": "Install blocked: pnpm blocked git-source build scripts (allowBuilds required, unavailable in isolation)",
+        "installExit": 1,
+        "bootExit": null,
+        "durationMs": 7592
+      },
+      "findings": [
+        {
+          "ruleId": "unbuilt-entry",
+          "severity": "red",
+          "desc": "main points to ./lib/index.js but file does not exist",
+          "evidence": "package.json",
+          "fix": "Run the build: cd <plugin-dir> && pnpm install && pnpm build (or the build command in package.json scripts)",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-plugin-masterprompt",
+      "version": "1.0.0",
+      "grade": "green",
+      "source": "https://github.com/lw-storm/dsh-plugin-masterprompt.git",
+      "sourceCommit": "43b6a79",
+      "freshness": {
+        "ageHours": 41.8,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 42
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 19322
+      },
+      "findings": []
+    },
+    {
+      "name": "dsh-sshworkspaces",
+      "version": "0.1.0",
+      "grade": "red",
+      "source": "https://github.com/tiphareth0/dsh-sshworkspaces.git",
+      "sourceCommit": "d5d11e6",
+      "freshness": {
+        "ageHours": 4.6,
+        "level": "very-fresh",
+        "hint": "release <24h old (supply-chain attack window - verify carefully)"
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 5
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 21757
+      },
+      "findings": [
+        {
+          "ruleId": "no-bundle",
+          "severity": "yellow",
+          "desc": "No dsh.bundle manifest declared (installed as a plain dep, never activated)",
+          "evidence": "package.json",
+          "fix": "Add a dsh.bundle.patch declaration in package.json (e.g. \"dsh\": { \"bundle\": { \"patch\": \"./cordis.patch.yml\" } })",
+          "endpoints": null
+        },
+        {
+          "ruleId": "no-entry",
+          "severity": "red",
+          "desc": "No main field and no candidate entry file (index.js/lib/index.js etc.); loader fails importing by package name",
+          "evidence": "package.json",
+          "fix": "Add a main field in package.json pointing to the real entry (or add an index.js entry); build first if no build artifacts exist",
+          "endpoints": null
+        }
+      ]
+    },
+    {
+      "name": "dsh-github-workbench",
+      "version": "0.2.3",
+      "grade": "green",
+      "source": "https://github.com/meyaomiao/dsh-github-workbench.git",
+      "sourceCommit": "07b6d4f",
+      "freshness": {
+        "ageHours": 68.6,
+        "level": "recent",
+        "hint": null
+      },
+      "dormancy": {
+        "dormant": false,
+        "lastCommitHours": 69
+      },
+      "dependencies": null,
+      "vulnerabilities": null,
+      "dynamic": {
+        "status": "pass",
+        "installStatus": "ok",
+        "detail": "Isolated install passed + no loader errors (headless task needs real credentials)",
+        "installExit": 0,
+        "bootExit": 1,
+        "durationMs": 12639
+      },
+      "findings": []
+    }
+  ]
+}
